@@ -34,7 +34,7 @@
             width: 100%;
             height: 100vh;
             max-height: 100svh; /* 适配移动端 */
-            overflow: hidden;
+            overflow: hidden; 
             position: relative;
         }
 
@@ -55,6 +55,13 @@
             padding: 2rem;
             text-align: center;
         }
+        
+        .story-page.scrollable {
+            justify-content: flex-start;
+            padding-bottom: 8rem; /* 为导航按钮留出空间 */
+            height: auto; /* 覆盖 .story-page 的 100% 高度 */
+            min-height: 100vh; /* 至少占满一屏 */
+        }
 
         .story-page.active {
             opacity: 1;
@@ -64,7 +71,7 @@
 
         /* 导航按钮 */
         #story-nav {
-            position: absolute;
+            position: fixed;
             bottom: 2rem;
             left: 50%;
             transform: translateX(-50%);
@@ -94,6 +101,18 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes sequentialFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .meta-ach-card {
+            animation: sequentialFadeIn 0.6s ease-out forwards;
+            opacity: 0; /* Start hidden */
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 500px;
         }
 
         /* 城市气泡 (要求 ①) */
@@ -294,8 +313,8 @@
         <!-- ========================== -->
         <div id="full-report-page" class="relative" style="display: none;">
             <header class="text-center mb-6">
-                <h1 class="text-3xl font-bold" style="color: var(--theme-text);">你的专属观演报告</h1>
-                <p class="text-sm" style="color: var(--theme-text);">(你的完整旅程总览)</p>
+                <h1 class="text-3xl font-bold" style="color: var(--theme-text);">我的专属观演报告</h1>
+                <p class="text-sm" style="color: var(--theme-text);">(我的完整旅程总览)</p>
             </header>
 
             <div class="space-y-6">
@@ -324,7 +343,7 @@
                     </div>
                 </section>
                 
-                <!-- 模块1.5: 专属观演回忆 (Gemini) (要求 ③: 已注释) -->
+                <!-- 模块1.5: 专属观演回忆 (Gemini) (已注释) -->
                 <!--
                 <section class="report-card">
                     <div class="p-5">
@@ -355,7 +374,6 @@
                 <section class="report-card" id="full-rarity-grid">
                     <div class="p-5">
                         <h2 class="text-2xl font-semibold mb-4 text-center">我的点歌稀有度</h2>
-                        <!-- 统计 (Start/End/Exclusive) -->
                         <div class="grid grid-cols-3 gap-4 text-center mb-4">
                             <div>
                                 <div id="full-rarity-first" class="text-3xl font-bold">0</div>
@@ -366,12 +384,12 @@
                                 <div class="text-sm mt-1">巡演终点</div>
                             </div>
                             <div>
-                                <div id="full-rarity-only" class="text-3xl font-bold">0</div>
-                                <div class="text-sm mt-1">独家一刻</div>
+                                <!-- !!! 你的修改 (HTML) !!! -->
+                                <div id="full-rarity-total-songs" class="text-3xl font-bold">0</div>
+                                <div class="text-sm mt-1">点歌总数</div>
                             </div>
                         </div>
                         
-                        <!-- (要求 ④) 稀有度分级 (仅显示数量) -->
                         <div id="full-rarity-levels" class="mt-4 pt-4 border-t border-gray-200">
                              <h3 class="font-semibold text-center mb-2">稀有度分级总览</h3>
                              <div class="grid grid-cols-4 gap-2 text-center">
@@ -407,8 +425,8 @@
                                 </ul>
                             </div>
                              <div>
-                                <h3 class="font-semibold text-lg mb-2">我的一面之缘</h3>
-                                <ul id="full-encore-once" class="list-disc list-inside space-y-1 max-h-40 overflow-y-auto">
+                                <h3 class="font-semibold text-lg mb-2">我的惊喜歌曲</h3>
+                                <ul id="full-encore-once" class="list-disc list-inside space-y-1">
                                 </ul>
                             </div>
                         </div>
@@ -508,7 +526,7 @@
             },
             {
                 albumName: '《无与伦比的美丽》',
-                tracks: ['游乐', '花茶', '四季狂想', '左边', '无与伦比的美丽', '白日出没的月球', '这天', '简单生活', '城市', '相信']
+                tracks: ['游乐', '花茶', '四季狂想', '左边', '无与伦B的美丽', '白日出没的月球', '这天', '简单生活', '城市', '相信']
             },
             {
                 albumName: '《陪我歌唱》',
@@ -539,9 +557,8 @@
                 tracks: ['痛快的哀艳', '对杀人狂指控', '地平线', '我们不懂', '博物馆', '回车诺比的梦', '下雨的夜晚', '他举起右手点名', 'Everyone', '墙外的风景', '未了', 'Must Keep Singing']
             },
             {
-                // (要求 ①: 已修正)
                 albumName: '《池堂怪谈》',
-                tracks: ['起点终点', '我就奇怪', '蜂蜜人参', 'Joyful Day', '在世界的尽头大声地说我恨你', 'Sorry青春', '脑波弱', '我就是个朴实无华的Bass手', '先说先赢', '星月花火', '终点起点']
+                tracks: ['我就奇怪', '蜂蜜人参', 'Joyful Day', '在世界的尽头大声地说我恨你', 'Sorry青春', '脑波弱', '我就是个朴实无华的Bass 手', '先说先赢', '星月花火', '终点起点', '沙发里有沙发Radio']
             }
         ];
 
@@ -562,7 +579,7 @@
             '说了再见以后',
             '你在烦恼什么',
             '陪我歌唱',
-            '无与伦比的美丽',
+            '无与伦B的美丽',
             'Everyone',
             '喜欢寂寞',
             '追追追',
@@ -763,7 +780,7 @@
             title: '一起经历台风的生死之交',
             description: '“几十年一遇的台风，我们依旧相聚” 你和苏打绿一起在上海见证了台风天的演出。',
             type: 'experience',
-            triggerShows: ['sh01', 'sh02'] // (你的任务: 确认上海哪些场次算台风场)
+            triggerShows: ['sh01', 'sh02']
           },
           {
             id: 'ach_fishleong',
@@ -771,14 +788,13 @@
             description: '“这是苏打绿的演唱会吗？” 你在现场解锁了来自“鱼丁糸”的歌曲！',
             type: 'song',
             triggerMap: {
-              // (要求 ①: 已修正)
               'zz01': ['沙发里有沙发Radio'],
-              'zz02': [ '先说先赢', '在世界的尽头大声地说我恨你'], // '吵' 已移除
+              'zz02': [ '先说先赢', '在世界的尽头大声地说我恨你'], 
               'sz01': ['在世界的尽头大声地说我恨你'],
               'bj01': ['脑波弱'],
               'wh01': ['Sorry青春'],
               'cq01': ['Sorry青春'],
-              'cq02': ['脑波弱', '先说先赢', '蜂蜜人参'], // '蜂蜜人蔘' -> '蜂蜜人参'
+              'cq02': ['脑波弱', '先说先赢', '蜂蜜人参'], 
               'ber': ['在世界的尽头大声地说我恨你']
             }
           },
@@ -786,7 +802,7 @@
             id: 'ach_origin',
             title: '陪苏打绿回望起点',
             description: '你听到了2004年的第一首单曲，再一次回望原点。',
-            lyric: '“大约凌晨三点半醒过来，莫名其妙喝了一杯苏打，厌世气泡嗝出一片绿林，微微不安”',
+            lyric: '大约凌晨三点半醒过来，莫名其妙喝了一杯苏打，厌世气泡嗝出一片绿林，微微不安',
             type: 'song',
             triggerMap: {
               'cd01': ['空气中的视听与幻觉'],
@@ -851,7 +867,7 @@
           {
             id: 'ach_this_day',
             title: '和苏打绿一起记住这一天',
-            description: '“请让我在你身边，一起纪念这一天”',
+            description: '请让我在你身边，一起纪念这一天',
             type: 'song',
             triggerMap: { 
               'hz01': ['这天'], 
@@ -867,7 +883,7 @@
           {
             id: 'ach_miss_you',
             title: '我好想你苏打绿',
-            description: '“我好想你，好想你... ...”',
+            description: '我好想你，好想你... ...',
             type: 'song',
             triggerMap: { 
               'bj02': ['我好想你'], 
@@ -895,7 +911,7 @@
             '饥饿再生',
             'Silent Angel',
             '白日梦绳索',
-            '旅人', // (已修正)
+            '旅人', 
             '夜来疯',
             '悬丝傀儡',
             "Let's Dream about Love",
@@ -905,13 +921,13 @@
 
         // --- D7: 所有“遗珠”单曲 (已修正) ---
         const allUnreleasedSongs = [
-            '空气中的视听与幻觉', 'Believe In Music', '蜘蛛天空', "I Don't Care", '忧愁', '我的未来不是梦', // (要求 ②: 已修正 'I Don't Care')
+            '空气中的视听与幻觉', 'Believe In Music', '蜘蛛天空', "I Don't Care", '忧愁', '我的未来不是梦',
             '鱼儿离不开水', 'Rootless Tree', 'Cash Machine', '如果你冷', '无状态', '黑猫白猫', '罗生门',
             '快乐颂', '被雨伤透', '落寞', '雨中的操场', '东京餐馆的China Girl', '一想到你呀', '城里的月光',
             '一起喔喔', '黄昏的故乡', '小时候', '没有烟抽的日子', '岛唄', '原谅', '九月', '美错', '开到荼靡',
             '我在欧洲打电话给你', '安静在沸腾', '百年孤寂', 'Tomorrow will be fine.', '非常女', '跟着你到天边',
             '女爵', '掉了', '带我走', '你和我的时光', '那些花儿', '栅栏间隙偷窥你', '十七', '舞女', '红豆',
-            '好好爱你', '你', '艳火', '有形的翅膀', '朱古力', 'The lonely Goatherd+山顶黑狗兄', '少年维特的烦恼'
+            '好好爱你', '你', '艳火', '有形的翅膀', '朱古力', 'The Lonely Goatherd+山顶黑狗兄', '少年维特的烦恼'
         ];
 
 
@@ -936,7 +952,6 @@
             const modal = document.getElementById('alert-modal');
             const modalMessage = document.getElementById('modal-message');
             const modalCloseBtn = document.getElementById('modal-close-btn');
-            // (要求 ③: 已注释)
             // const geminiGenerateBtn = document.getElementById('gemini-generate-btn');
             // const geminiLoading = document.getElementById('gemini-loading');
             // const geminiOutput = document.getElementById('gemini-output');
@@ -945,6 +960,7 @@
             let allReportData = {}; // 存储所有计算结果
             let storyPages = [];     // 故事页面序列
             let currentPageIndex = 0;
+            let surpriseSongs = new Set(); // (要求 ③) 新增: 存储惊喜歌曲
 
             // --- 页面初始化 ---
             
@@ -1049,7 +1065,7 @@
                 const totalHours = totalShows * 3;
                 const uniqueCities = [...new Set(selectedShows.map(show => show.city))];
                 const totalCities = uniqueCities.length;
-                const cityListText = totalCities > 0 ? `你的足迹遍布：${uniqueCities.join('、')}` : '你还没有选择任何场次。';
+                const cityListText = totalCities > 0 ? `我的足迹遍布：${uniqueCities.join('、')}` : '我还没有选择任何场次。';
                 return { totalShows, totalHours, totalCities, cityListText, uniqueCities };
             }
 
@@ -1100,9 +1116,12 @@
                     let unheardTracks = [];
 
                     album.tracks.forEach(track => {
+                        // (!!! 额外修复 !!!) 统一使用更健壮的匹配逻辑
+                        const simplifiedTrack = track.replace(/[\s\.]/g, '');
                         const userHasSong = [...userSongsSet].some(userSong => 
-                            userSong.replace(/[\. ]/g, '') === track.replace(/[\. ]/g, '')
+                            userSong.replace(/[\s\.]/g, '') === simplifiedTrack
                         );
+                        
                         if (userHasSong) {
                             count++;
                             heardTracks.push(track);
@@ -1125,6 +1144,7 @@
                 });
             }
 
+            // F2.4: 计算个人点歌分析
             function calculateEncoreStats(encoreSongsWithDuplicates) {
                 const songCounts = encoreSongsWithDuplicates.reduce((acc, song) => {
                     acc[song] = (acc[song] || 0) + 1;
@@ -1132,10 +1152,12 @@
                 }, {});
 
                 const sortedSongs = Object.entries(songCounts).sort(([, countA], [, countB]) => countB - countA);
+                // "宿命曲目" (Top 3)
                 const top3 = sortedSongs.slice(0, 3).map(([name, count]) => ({ name, count }));
+                // "一面之缘" (用于故事页)
                 const once = sortedSongs.filter(([, count]) => count === 1).map(([name]) => name);
 
-                return { top3, once };
+                return { top3, once }; // "once" 仍被 "renderEncorePage" 故事页使用
             }
 
             // (V3 重大修改) F2.5: 计算稀有度 (返回歌曲列表) (响应要求 ③)
@@ -1156,17 +1178,15 @@
                     // (要求 ③) 收集“巡演终点”歌曲
                     if (userShowIDs.includes(rarityInfo.lastShowId)) {
                         rarityLast++;
-                        lastSongsList.push(song); // (Bug 修复): 之前这里漏掉了
+                        lastSongsList.push(song); 
                     }
-                    // (要求 ③) 收集“独家一刻”歌曲
+                    // (要求 ③) 收集“独家一刻”歌曲 (!!! 此处 'rarityOnly' 仅为最终页简化统计用 !!!)
                     if (rarityInfo.tourCount === 1) { 
                         rarityOnly++;
-                        onlySongsList.push(song); 
-                        // (修正: 独家一刻的 first/last 检查在上面已做)
-                        // (修正: firstSongsList 和 lastSongsList 会自然包含独家歌曲, 但 onlySongsList 是独立的)
+                        // 'onlySongsList' 列表在 V3 中已废弃 (被 level1 替代)
                     }
 
-                    // (要求 ③) 收集稀有度分级歌曲
+                    // 稀有度分级歌曲
                     if (rarityInfo.tourCount === 1) level1.push(song);
                     else if (rarityInfo.tourCount <= 3) level2.push(song);
                     else if (rarityInfo.tourCount <= 5) level3.push(song);
@@ -1177,15 +1197,18 @@
                     rarityFirst, rarityLast, rarityOnly,
                     firstSongsList: [...new Set(firstSongsList)], // 去重
                     lastSongsList: [...new Set(lastSongsList)],   // 去重
-                    onlySongsList, // 独家列表本身就是唯一的
+                    onlySongsList: [], // (!!! 修改 ① !!!) 废弃 'onlySongsList'
                     level1, level2, level3, level4,
                     totalListSongs: level1.length + level2.length + level3.length + level4.length,
                     totalStatSongs: rarityFirst + rarityLast + rarityOnly
                 };
             }
             
-            function calculateAchievements(userShowIDs, selectedShows) {
-                let unlocked = [];
+            // F2.6: 计算特殊成就 (拆分歌曲成就和元成就)
+            function calculateAchievements(userShowIDs, selectedShows, totalCities) {
+                let songAchievements = [];
+                let metaAchievements = []; 
+                
                 const showMap = new Map(selectedShows.map(show => [show.id, show]));
                 
                 const findSong = (songList, targetSong) => {
@@ -1199,7 +1222,7 @@
                     
                     if (ach.type === 'experience') {
                         if (userShowIDs.some(id => ach.triggerShows.includes(id))) {
-                            unlocked.push({ ...ach });
+                            metaAchievements.push({ ...ach });
                         }
                     } else if (ach.type === 'song') {
                         userShowIDs.forEach(id => {
@@ -1226,7 +1249,7 @@
                         });
                         
                         if (unlockedDetails.length > 0) {
-                            unlocked.push({ ...ach, details: unlockedDetails });
+                            songAchievements.push({ ...ach, details: unlockedDetails });
                         }
                     }
                 });
@@ -1248,7 +1271,7 @@
                     }
                 });
                 if (reunionDetails.length > 0) {
-                    unlocked.push({
+                    songAchievements.push({
                         id: 'ach_reunion',
                         title: '重逢的一刻',
                         description: '你在一刻环节，听到了本不属于这座城市的限定新歌。',
@@ -1268,10 +1291,10 @@
                     }
                 });
                 if (unreleasedDetails.length > 0) {
-                     unlocked.push({
+                     songAchievements.push({
                         id: 'ach_unreleased',
                         title: '遗珠不再有憾',
-                        description: '你听到了这些未曾收录在录音室专辑中的“遗珠”之作。',
+                        description: '你听到了这些未收录在旧版录音室专辑中的“遗珠”之作。',
                         type: 'song',
                         details: unreleasedDetails
                     });
@@ -1292,25 +1315,38 @@
                     }
                 }
                 if (conqueredCities.length > 0) {
-                    unlocked.push({
+                    metaAchievements.push({
                         id: 'meta_city_conquer',
-                        title: '城市制霸',
-                        description: `你制霸了 ${conqueredCities.join('、')}！这座城市的每一刻你都未曾缺席。`,
+                        title: '城市全勤',
+                        description: `我制霸了 ${conqueredCities.join('、')}！这座城市的每一刻我都未曾缺席。`,
                         type: 'experience'
                     });
                 }
                 
-                // 5. 计算 'meta_region_master' (三地巡游)
+                // 5. 计算 'meta_region_master' (各地巡游)
                 const regionsVisited = new Set(selectedShows.map(show => show.region));
-                if (regionsVisited.size === 3) {
-                    unlocked.push({
+                let achDescription = '';
+                const hasAllRegions = regionsVisited.size === 3;
+                const hasManyCities = totalCities >= 5;
+
+                if (hasAllRegions && hasManyCities) {
+                    achDescription = `真正的巡演旅人，我的足迹跨越了山川与海洋，遍布 ${totalCities} 座城市！`;
+                } else if (hasAllRegions) {
+                    achDescription = '真正的巡演旅人，我的足迹跨越了山川与海洋。';
+                } else if (hasManyCities) {
+                    achDescription = `真正的巡演旅人，我的足迹遍布 ${totalCities} 座城市！`;
+                }
+
+                if (hasAllRegions || hasManyCities) {
+                    metaAchievements.push({
                         id: 'meta_region_master',
-                        title: '三地巡游',
-                        description: '真正的巡演旅人，你的足迹跨越了山川与海洋。',
+                        title: '各地巡游',
+                        description: achDescription,
                         type: 'experience'
                     });
                 }
-                return unlocked;
+                
+                return { songAchievements, metaAchievements };
             }
 
             // --- V3 故事版渲染逻辑 (F3) ---
@@ -1365,15 +1401,14 @@
                     </div>
                     
                     <h3 class="story-subtitle text-2xl font-semibold mt-4">“我听到了这些珍贵的一刻”</h3>
-                    <div class="text-left max-w-md w-full max-h-60 overflow-y-auto p-4 report-card">
+                    <div class="text-left max-w-md w-full p-4 report-card">
                         <ul class="list-disc list-inside space-y-2">
                             ${data.cityMoments.length > 0 ? data.cityMoments.map(song => `<li class="text-lg">${song}</li>`).join('') : '<li class="text-lg italic">暂无</li>'}
                         </ul>
                     </div>
                 `;
                 
-                // (!!! BUG 修复 !!!)
-                // (!!! 将 document.getElementById 改为 page.querySelector !!!)
+                // (V3 修复) 将事件监听器附加到正确的元素 (page)
                 page.querySelector('#city-list-toggler').addEventListener('click', (e) => {
                     e.currentTarget.style.display = 'none'; // 隐藏按钮
                     const bubbleContainer = page.querySelector('#city-list-bubbles');
@@ -1394,7 +1429,7 @@
                 let detailsHTML = '';
                 if (ach.details && ach.details.length > 0) {
                     detailsHTML = ach.details.map(detail => 
-                        `<li>[${detail.date} ${detail.city}] 你听到了《${detail.songs.join('》、《')}》</li>`
+                        `<li>[${detail.date} ${detail.city}] 我听到了《${detail.songs.join('》、《')}》</li>`
                     ).join('');
                 }
                 
@@ -1405,7 +1440,8 @@
                         
                         ${detailsHTML ? `
                         <div class="story-ach-details">
-                            <div class="details-title">你的见证:</div>
+                            <!-- (!!! 修改 ⑤ !!!) -->
+                            <div class="details-title">我的见证:</div>
                             <ul class="list-disc list-inside pl-2 text-sm space-y-1 mt-2">
                                 ${detailsHTML}
                             </ul>
@@ -1418,63 +1454,90 @@
             }
 
             /**
-             * (V3 新增 - 要求 ③) 渲染稀有度统计页 (起点/终点/独家)
+             * (V3 新增) 渲染“元”成就合并页
              */
-            function renderRarityStatsPage(page, data) {
-                const renderSongList = (songs) => {
-                    if (!songs || songs.length === 0) return '<li class="text-gray-500 italic text-sm">暂无</li>';
-                    return songs.map(s => `<li class="text-sm">${s}</li>`).join('');
-                };
-
+            function renderMetaAchievementPage(page, achievements) {
                 page.innerHTML = `
-                    <h1 class="story-title">我的稀有度 (见证篇)</h1>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-2xl">
-                        <div class="report-card p-4">
-                            <div class="text-5xl font-bold" style="color: var(--theme-primary);">${data.rarityFirst}</div>
-                            <div class="text-lg font-semibold mt-1">巡演起点</div>
-                            <ul class="list-disc list-inside mt-2 text-left max-h-40 overflow-y-auto">${renderSongList(data.firstSongsList)}</ul>
+                    <h1 class="story-title">我的特别印记</h1>
+                    <div class="flex flex-col items-center w-full">
+                    ${achievements.map((ach, index) => `
+                        <div class="meta-ach-card report-card p-5 text-center" style="animation-delay: ${index * 0.4}s;">
+                            <h2 class="story-ach-title text-2xl mb-2">🏆 ${ach.title}</h2>
+                            <p class="story-ach-desc text-base">“${ach.description}”</p>
                         </div>
-                        <div class="report-card p-4">
-                            <div class="text-5xl font-bold" style="color: var(--theme-primary);">${data.rarityLast}</div>
-                            <div class="text-lg font-semibold mt-1">巡演终点</div>
-                            <ul class="list-disc list-inside mt-2 text-left max-h-40 overflow-y-auto">${renderSongList(data.lastSongsList)}</ul>
-                        </div>
-                        <div class="report-card p-4">
-                            <div class="text-5xl font-bold" style="color: var(--theme-primary);">${data.rarityOnly}</div>
-                            <div class="text-lg font-semibold mt-1">独家一刻</div>
-                            <ul class="list-disc list-inside mt-2 text-left max-h-40 overflow-y-auto">${renderSongList(data.onlySongsList)}</ul>
-                        </div>
+                    `).join('')}
                     </div>
                 `;
             }
 
             /**
-             * (V3 新增 - 要求 ③) 渲染稀有度分级页 (L1-L4)
+             * (V3 修改 - 要求 ①, ②) 渲染稀有度统计页 (起点/终点)
              */
-            function renderRarityLevelsPage(page, data) {
+            function renderRarityStatsPage(page, data) {
+                // (!!! 修改 ② !!!) 移除复选框
                 const renderSongList = (songs) => {
                     if (!songs || songs.length === 0) return '<li class="text-gray-500 italic text-sm">暂无</li>';
                     return songs.map(s => `<li class="text-sm">${s}</li>`).join('');
                 };
 
                 page.innerHTML = `
-                    <h1 class="story-title">我的稀有度 (分级篇)</h1>
+                    <h1 class="story-title">我的点歌稀有度 </h1>
+                    <!-- (!!! 修改 ① !!!) 改为 md:grid-cols-2 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl">
+                        <div class="report-card p-4">
+                            <div class="text-5xl font-bold" style="color: var(--theme-primary);">${data.rarityFirst}</div>
+                            <div class="text-lg font-semibold mt-1">巡演起点</div>
+                            <p class="text-xs text-gray-500 mt-1">(在巡演点歌中我听到了这些歌的首次演唱)</p>
+                            <ul class="list-disc list-inside mt-2 text-left">${renderSongList(data.firstSongsList)}</ul>
+                        </div>
+                        <div class="report-card p-4">
+                            <div class="text-5xl font-bold" style="color: var(--theme-primary);">${data.rarityLast}</div>
+                            <div class="text-lg font-semibold mt-1">巡演终点</div>
+                            <p class="text-xs text-gray-500 mt-1">(在巡演点歌中我听到了这些歌的最后一次演唱)</p>
+                            <ul class="list-disc list-inside mt-2 text-left">${renderSongList(data.lastSongsList)}</ul>
+                        </div>
+                        <!-- (!!! 修改 ① !!!) 移除 "独家一刻" 模块 -->
+                    </div>
+                `;
+            }
+
+            /**
+             * (V3 修改 - 要求 ②, ③) 渲染稀有度分级页 (L1-L4)
+             */
+            function renderRarityLevelsPage(page, data) {
+                // (!!! 修改 ② !!!) 保留此处的复选框
+                const renderSongList = (songs) => {
+                    if (!songs || songs.length === 0) return '<li class="text-gray-500 italic text-sm">暂无</li>';
+                    return songs.map(s => `
+                        <li class="flex items-center space-x-2">
+                            <input type="checkbox" class="surprise-song-check form-checkbox h-4 w-4 rounded" data-song-name="${s}" style="color: var(--theme-primary);">
+                            <label class="text-sm">${s}</label>
+                        </li>
+                    `).join('');
+                };
+
+                page.innerHTML = `
+                    <h1 class="story-title">我的点歌稀有度 </h1>
+                    <!-- (!!! 修改 ③ !!!) 添加提示 -->
+                    <p class="story-subtitle text-sm mb-4">
+                        请勾选你认为最惊喜、最特别的歌曲，<br>它们将出现在最终报告的“我的惊喜歌曲”列表中。
+                    </p>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-3xl">
                         <div class="report-card p-3">
                             <h3 class="font-semibold text-lg" style="color: var(--theme-primary);">“绝版一刻” (${data.level1.length})</h3>
-                            <ul class="list-disc list-inside text-left mt-2 max-h-48 overflow-y-auto">${renderSongList(data.level1)}</ul>
+                            <ul class="list-disc list-inside text-left mt-2">${renderSongList(data.level1)}</ul>
                         </div>
                         <div class="report-card p-3">
                             <h3 class="font-semibold text-lg" style="color: var(--theme-primary);">“限定重逢” (${data.level2.length})</h3>
-                            <ul class="list-disc list-inside text-left mt-2 max-h-48 overflow-y-auto">${renderSongList(data.level2)}</ul>
+                            <ul class="list-disc list-inside text-left mt-2">${renderSongList(data.level2)}</ul>
                         </div>
                         <div class="report-card p-3">
                             <h3 class="font-semibold text-lg" style="color: var(--theme-primary);">“珍贵相遇” (${data.level3.length})</h3>
-                            <ul class="list-disc list-inside text-left mt-2 max-h-48 overflow-y-auto">${renderSongList(data.level3)}</ul>
+                            <ul class="list-disc list-inside text-left mt-2">${renderSongList(data.level3)}</ul>
                         </div>
                         <div class="report-card p-3">
                             <h3 class="font-semibold text-lg" style="color: var(--theme-primary);">“热门回响” (${data.level4.length})</h3>
-                            <ul class="list-disc list-inside text-left mt-2 max-h-48 overflow-y-auto">${renderSongList(data.level4)}</ul>
+                            <ul class="list-disc list-inside text-left mt-2">${renderSongList(data.level4)}</ul>
                         </div>
                     </div>
                 `;
@@ -1488,14 +1551,14 @@
                     <h1 class="story-title">我的个人点歌</h1>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl">
                         <div class="report-card p-4">
-                            <h3 class="font-semibold text-xl mb-2">我的宿命曲目 Top 3</h3>
+                            <h3 class="font-semibold text-xl mb-2">我的常听曲目 Top 3</h3>
                             <ul class="list-decimal list-inside space-y-1 text-left">
                                 ${data.top3.length > 0 ? data.top3.map(s => `<li class="text-lg">${s.name} (${s.count} 次)</li>`).join('') : '<li class="text-gray-500 italic">暂无</li>'}
                             </ul>
                         </div>
                          <div class="report-card p-4">
-                            <h3 class="font-semibold text-xl mb-2">我的一面之缘</h3>
-                            <ul class="list-disc list-inside space-y-1 text-left max-h-60 overflow-y-auto">
+                            <h3 class="font-semibold text-xl mb-2">我的一面之缘曲目</h3>
+                            <ul class="list-disc list-inside space-y-1 text-left">
                                 ${data.once.length > 0 ? data.once.map(s => `<li class="text-base">${s}</li>`).join('') : '<li class="text-gray-500 italic">暂无</li>'}
                             </ul>
                         </div>
@@ -1512,7 +1575,7 @@
                 
                 page.innerHTML = `
                     <h1 class="story-title">专辑点亮计划</h1>
-                    <div class="w-full max-w-md h-3/4 overflow-y-auto report-card p-4 space-y-3">
+                    <div class="w-full max-w-md report-card p-4 space-y-3">
                         ${data.map((album, index) => `
                             <div class="border border-gray-200 rounded-md">
                                 <div id="album-header-${index}" class="accordion-header p-3" data-target="#album-content-${index}">
@@ -1540,13 +1603,9 @@
                         `).join('')}
                     </div>
                 `;
-                // 激活新生成的折叠菜单
-                // (!!! BUG 修复 !!!)
-                // (!!! 将 document.querySelectorAll 改为 page.querySelectorAll !!!)
+                
                 page.querySelectorAll('.accordion-header').forEach(header => {
                     header.addEventListener('click', () => {
-                        // (!!! BUG 修复 !!!)
-                        // (!!! 将 document.querySelector 改为 page.querySelector !!!)
                         const content = page.querySelector(header.dataset.target);
                         header.classList.toggle('open');
                         content.classList.toggle('open');
@@ -1555,23 +1614,24 @@
             }
 
             /**
-             * (V3 新增) 渲染最终总览页 (入口)
+             * (V3 修改 - 要求 ⑤) 渲染最终总览页 (入口)
              */
             function renderFullReport(page, data) {
                 page.innerHTML = `
-                    <h1 class="story-title">你的旅程已汇总</h1>
-                    <p class="story-subtitle">这是你的“二十年一刻”完整报告，<br>感谢你成为这一刻的一部分。</p>
+                    <!-- (!!! 修改 ⑤ !!!) -->
+                    <h1 class="story-title">我的旅程已汇总</h1>
+                    <p class="story-subtitle">这是我的“二十年一刻”完整报告，<br>感谢我成为这一刻的一部分。</p>
                     <button id="show-full-report-btn" class="story-nav-btn">查看完整报告</button>
                 `;
                 
                 // 填充最终报告页的数据 (在后台)
                 populateFullReportPage(data);
                 
-                // (!!! BUG 修复 !!!)
-                // (!!! 将 document.getElementById 改为 page.querySelector !!!)
                 page.querySelector('#show-full-report-btn').addEventListener('click', () => {
                     storyContainer.style.display = 'none';
                     fullReportPage.style.display = 'block';
+                    // (!!! 修复 !!!) 确保导航按钮在切换到最终页时隐藏
+                    storyNav.style.display = 'none'; 
                     window.scrollTo(0, 0);
                 });
             }
@@ -1579,15 +1639,19 @@
             
             // --- 最终报告页 渲染函数 (F3 - Full Report) ---
 
+            /**
+             * 填充最终报告页
+             */
             function populateFullReportPage(data) {
                 renderFullReportOverview(data.overview);
-                renderFullReportAchievements(data.achievements); // (要求 ④)
-                renderFullReportRarity(data.rarity);             // (要求 ④)
-                renderFullReportEncore(data.encore);
-                renderFullReportAlbums(data.albums); // (可展开版)
+                renderFullReportAchievements(data.allAchievements);
+                renderFullReportRarity(data.rarity);
+                renderFullReportEncore(data.encore, [...surpriseSongs]); 
+                renderFullReportAlbums(data.albums);
             }
 
             function renderFullReportOverview(data) {
+                // (!!! 修复 !!!) 移除 .overview
                 document.getElementById('full-total-shows').textContent = data.totalShows;
                 document.getElementById('full-total-hours').textContent = data.totalHours;
                 document.getElementById('full-total-cities').textContent = data.totalCities;
@@ -1597,17 +1661,16 @@
             /**
              * (V3 新增 - 要求 ④) 渲染简化的成就墙
              */
-            function renderFullReportAchievements(data) {
+            function renderFullReportAchievements(achievementsData) {
                 const container = document.getElementById('full-achievement-grid');
-                if (data.length === 0) {
-                    container.innerHTML = '<p class="text-gray-500 italic text-center">你尚未解锁任何特殊成就。</p>';
+                if (achievementsData.length === 0) {
+                    container.innerHTML = '<p class="text-gray-500 italic text-center">我尚未解锁任何特殊成就。</p>';
                     return;
                 }
                 
-                // (要求 ④) 只显示标题，不显示描述和详情
                 container.innerHTML = `
                     <div class="flex flex-wrap justify-center gap-2">
-                        ${data.map(ach => `
+                        ${achievementsData.map(ach => `
                             <div class="achievement-card p-2 px-3">
                                 <span class="title text-sm">🏆 ${ach.title}</span>
                             </div>
@@ -1631,18 +1694,26 @@
                 // 1. 渲染统计 (Start/End/Exclusive)
                 document.getElementById('full-rarity-first').textContent = data.rarityFirst;
                 document.getElementById('full-rarity-last').textContent = data.rarityLast;
-                document.getElementById('full-rarity-only').textContent = data.rarityOnly;
+                // !!! 你的修改 (JS) !!!
+                document.getElementById('full-rarity-total-songs').textContent = data.totalListSongs;
                 
-                // 2. (要求 ④) 渲染 L1-L4 数量
+                // 2. 渲染 L1-L4 数量
                 document.getElementById('full-rarity-l1-count').textContent = data.level1.length;
                 document.getElementById('full-rarity-l2-count').textContent = data.level2.length;
                 document.getElementById('full-rarity-l3-count').textContent = data.level3.length;
                 document.getElementById('full-rarity-l4-count').textContent = data.level4.length;
             }
             
-            function renderFullReportEncore(data) {
+            /**
+             * (V3 修改 - 要求 ④) 渲染个人点歌 (Top3 + 惊喜)
+             */
+            function renderFullReportEncore(data, surpriseSongsList) {
                 document.getElementById('full-encore-top3').innerHTML = data.top3.map(s => `<li>${s.name} (${s.count} 次)</li>`).join('') || '<li class="text-gray-500 italic">暂无</li>';
-                document.getElementById('full-encore-once').innerHTML = data.once.map(s => `<li>${s}</li>`).join('') || '<li class="text-gray-500 italic">暂无</li>';
+                
+                // (!!! 修改 ④ !!!) “我的惊喜歌曲”
+                document.getElementById('full-encore-once').innerHTML = surpriseSongsList.length > 0 
+                    ? surpriseSongsList.map(s => `<li>${s}</li>`).join('') 
+                    : '<li class="text-gray-500 italic">暂无 (未在故事页勾选)</li>';
             }
             
             // (V3 修改) 最终报告页的专辑列表 (可展开)
@@ -1676,13 +1747,9 @@
                         </div>
                     </div>
                 `).join('');
-                // 激活最终报告页的折叠菜单
-                // (!!! BUG 修复 !!!)
-                // (!!! 将 document.querySelectorAll 改为 container.querySelectorAll !!!)
+                
                 container.querySelectorAll('.accordion-header').forEach(header => {
                     header.addEventListener('click', () => {
-                        // (!!! BUG 修复 !!!)
-                        // (!!! 将 document.querySelector 改为 container.querySelector !!!)
                         const content = container.querySelector(header.dataset.target);
                         header.classList.toggle('open');
                         content.classList.toggle('open');
@@ -1694,7 +1761,7 @@
             // --- V3 故事版导航 (Story Navigation) ---
 
             /**
-             * (V3 新增) 1. 创建故事页面序列
+             * (V3) 1. 创建故事页面序列
              */
             function createStoryPages(data) {
                 storyPages = []; // 重置
@@ -1708,14 +1775,19 @@
                 // 3. 城市与一刻页
                 storyPages.push({ type: 'city-moments', data: { overview: data.overview, cityMoments: data.cityMoments }});
 
-                // 4. 成就页 (动态)
+                // 4. 歌曲成就页 (动态)
                 if (data.achievements.length > 0) {
                     data.achievements.forEach(ach => {
                         storyPages.push({ type: 'achievement', data: ach });
                     });
                 }
                 
-                // 5. 稀有度 (要求 ③: 新的两个页面)
+                // 5. “元”成就页 (合并)
+                if (data.metaAchievements.length > 0) {
+                    storyPages.push({ type: 'meta-achievements', data: data.metaAchievements });
+                }
+                
+                // 6. 稀有度 (要求 ③: 新的两个页面)
                 if (data.rarity.totalStatSongs > 0) {
                      storyPages.push({ type: 'rarity-stats', data: data.rarity });
                 }
@@ -1723,20 +1795,20 @@
                      storyPages.push({ type: 'rarity-levels', data: data.rarity });
                 }
 
-                // 6. 个人点歌页
+                // 7. 个人点歌页
                 storyPages.push({ type: 'encore', data: data.encore });
                 
-                // 7. 专辑点亮页
+                // 8. 专辑点亮页
                 storyPages.push({ type: 'albums', data: data.albums });
                 
-                // 8. 最终报告入口页
+                // 9. 最终报告入口页
                 storyPages.push({ type: 'full-report', data: data });
 
                 return storyPages;
             }
 
             /**
-             * (V3 新增) 2. 渲染当前页面
+             * (V3) 2. 渲染当前页面
              */
             function renderCurrentPage() {
                 // 清理旧页面
@@ -1747,6 +1819,30 @@
                 // 创建新页面
                 const page = document.createElement('div');
                 page.className = 'story-page';
+                
+                // 检查是否为可滚动页面
+                const isScrollable = [
+                    'albums', 
+                    'rarity-stats', 
+                    'rarity-levels', 
+                    'encore',
+                    'city-moments', 
+                    'achievement', 
+                    'meta-achievements'
+                ].includes(pageData.type);
+
+                if (isScrollable) {
+                    page.classList.add('scrollable');
+                    page.style.position = 'relative'; 
+                    storyContainer.style.height = 'auto';
+                    storyContainer.style.overflow = 'visible';
+                    storyContainer.style.maxHeight = 'none';
+                } else {
+                    page.style.position = 'absolute';
+                    storyContainer.style.height = '100vh';
+                    storyContainer.style.overflow = 'hidden';
+                    storyContainer.style.maxHeight = '100svh';
+                }
                 
                 // 根据类型填充内容 (路由)
                 switch (pageData.type) {
@@ -1762,10 +1858,13 @@
                     case 'achievement':
                         renderAchievementPage(page, pageData.data);
                         break;
-                    case 'rarity-stats': // (要求 ③) 新页面
+                    case 'meta-achievements':
+                        renderMetaAchievementPage(page, pageData.data);
+                        break;
+                    case 'rarity-stats': 
                         renderRarityStatsPage(page, pageData.data);
                         break;
-                    case 'rarity-levels': // (要求 ③) 新页面
+                    case 'rarity-levels':
                         renderRarityLevelsPage(page, pageData.data);
                         break;
                     case 'encore':
@@ -1787,6 +1886,11 @@
                 
                 // 更新导航按钮
                 updateNavButtons();
+                
+                // 如果是可滚动页面，滚动到页面顶部
+                if (isScrollable) {
+                    window.scrollTo(0, 0);
+                }
             }
 
             /**
@@ -1795,6 +1899,11 @@
             function updateNavButtons() {
                 // 欢迎页 (加载页) 隐藏导航
                 if (storyPages[currentPageIndex].type === 'welcome') {
+                    storyNav.style.display = 'none';
+                    return;
+                }
+                // (!!! 修复 !!!) 最终报告入口页也隐藏导航
+                if (storyPages[currentPageIndex].type === 'full-report') {
                     storyNav.style.display = 'none';
                     return;
                 }
@@ -1816,7 +1925,7 @@
             }
 
 
-            // --- Gemini API (要求 ③: 已注释) ---
+            // --- Gemini API (要求 ①: 保持注释) ---
             
             /*
             async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
@@ -1871,7 +1980,7 @@
                     const result = await fetchWithRetry(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        body: JSON.JSON.stringify(payload)
                     });
                     
                     const text = result.candidates[0].content.parts[0].text;
@@ -1889,7 +1998,7 @@
 
 
             /**
-             * (V3 重构) 主函数：生成报告
+             * (V3) 主函数：生成报告
              */
             function generateReport() {
                 // 1. 获取输入
@@ -1912,13 +2021,19 @@
                     const selectedShows = getSelectedShows(userShowIDs);
                     const { uniqueSongs, uniqueEncoreSongs, encoreSongsWithDuplicates } = getCompleteUserSongList(userShowIDs, selectedShows);
                     
+                    const overviewData = calculateOverview(userShowIDs, selectedShows);
+                    
+                    const { songAchievements, metaAchievements } = calculateAchievements(userShowIDs, selectedShows, overviewData.totalCities);
+                    
                     allReportData = {
-                        overview: calculateOverview(userShowIDs, selectedShows),
+                        overview: overviewData,
                         cityMoments: calculateCityMoments(selectedShows),
                         albums: calculateAlbumProgress(uniqueSongs),
                         encore: calculateEncoreStats(encoreSongsWithDuplicates),
                         rarity: calculateRarity(uniqueEncoreSongs, userShowIDs),
-                        achievements: calculateAchievements(userShowIDs, selectedShows)
+                        achievements: songAchievements, 
+                        metaAchievements: metaAchievements,
+                        allAchievements: [...songAchievements, ...metaAchievements].sort((a,b) => a.id.startsWith('meta_') ? 1 : -1) // (!!! 修复 !!!) 确保元成就排在最后
                     };
 
                     // (V3) 生成故事页面序列
@@ -1938,6 +2053,22 @@
             prevBtn.addEventListener('click', () => changePage(-1));
             nextBtn.addEventListener('click', () => changePage(1));
             
+            // (要求 ③) 新增: 为惊喜歌曲复选框添加事件委托
+            storyContainer.addEventListener('change', (e) => {
+                if (e.target.classList.contains('surprise-song-check')) {
+                    const songName = e.target.dataset.songName;
+                    if (e.target.checked) {
+                        surpriseSongs.add(songName);
+                    } else {
+                        surpriseSongs.delete(songName);
+                    }
+                    // (!!!) 实时更新最终报告页的数据
+                    if (allReportData.encore) {
+                        renderFullReportEncore(allReportData.encore, [...surpriseSongs]);
+                    }
+                }
+            });
+            
             // 最终报告页的重置按钮
             resetBtn.addEventListener('click', () => {
                 // 重置所有状态
@@ -1946,8 +2077,9 @@
                 allReportData = {};
                 storyPages = [];
                 currentPageIndex = 0;
+                surpriseSongs.clear(); // (要求 ③) 重置惊喜歌曲
                 
-                // (要求 ③: 已注释)
+                // (要求 ①: 保持注释)
                 // 重置 Gemini 模块
                 // geminiOutput.style.display = 'none';
                 // geminiOutput.textContent = '';
@@ -1967,7 +2099,7 @@
                 if (e.target === modal) closeAlert();
             });
             
-            // (要求 ③: 已注释)
+            // (要求 ①: 保持注释)
             // Gemini 按钮事件
             /*
             geminiGenerateBtn.addEventListener('click', () => {
@@ -1981,4 +2113,5 @@
     </script>
 </body>
 </html>
+
 
