@@ -95,12 +95,29 @@
         }
         
         /* ------------------------- */
-        /* V3 美化样式 (要求 ①, ②)  */
+        /* V3/V4 美化样式            */
         /* ------------------------- */
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* (V4.2 新增) 要求 ①: 分段淡出动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .detail-item-fade-in {
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0; /* 动画开始前隐藏 */
         }
         
         @keyframes sequentialFadeIn {
@@ -172,8 +189,93 @@
             color: var(--theme-text);
             border-bottom: 1px dashed var(--theme-primary);
             padding-bottom: 0.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem; /* 增加了间距 */
         }
+        
+        /* (V4.2 新增) 要求 ②: 时间轴样式 */
+        .timeline-container {
+            position: relative;
+            padding-left: 2rem; /* 为时间轴线和点留出空间 */
+        }
+        .timeline-line {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--theme-primary);
+            opacity: 0.3;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -2.4rem; /* (2rem padding) - (0.4rem dot size / 2) */
+            top: 0.3rem;
+            width: 0.8rem;
+            height: 0.8rem;
+            border-radius: 50%;
+            background-color: var(--theme-primary);
+            border: 2px solid var(--theme-bg);
+        }
+        .timeline-content {
+            text-align: left;
+        }
+        .timeline-date {
+            font-weight: 600;
+            font-size: 0.875rem; /* 14px */
+            color: var(--theme-text);
+        }
+        .timeline-city {
+            font-weight: 500;
+            font-size: 1rem; /* 16px */
+            color: var(--theme-text);
+        }
+        .timeline-songs {
+            font-size: 0.875rem;
+            color: var(--theme-text);
+            opacity: 0.7;
+        }
+
+        /* (V4.2 新增) 要求 ③: 重逢卡片样式 */
+        .reunion-container {
+            width: 100%;
+            space-y: 0.5rem;
+        }
+        .reunion-card {
+            background-color: var(--theme-bg);
+            border: 1px solid var(--theme-border);
+            border-left: 4px solid var(--theme-primary);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: left;
+            margin-bottom: 0.75rem;
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        .reunion-card h3 {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--theme-text);
+        }
+        .reunion-card p {
+            font-size: 0.875rem;
+            color: var(--theme-text);
+            opacity: 0.8;
+            margin-top: 0.25rem;
+        }
+        .reunion-card p strong {
+            color: var(--theme-primary);
+            font-weight: 600;
+        }
+
 
         /* ------------------------- */
         /* V1/V2 原始样式 (保留)     */
@@ -501,6 +603,8 @@
         let achievementDB = [];
         let allCityExclusiveSongs = [];
         let allUnreleasedSongs = [];
+        // (V4.2 新增) 要求 ③: 反向映射表
+        let citySongReverseMap = {};
 
 
         // =================================================================
@@ -555,6 +659,14 @@
                     achievementDB = data.achievementDB || [];
                     allCityExclusiveSongs = data.allCityExclusiveSongs || [];
                     allUnreleasedSongs = data.allUnreleasedSongs || [];
+
+                    // (V4.2 新增) 要求 ③: 建立城市限定歌反向映射表 (用于 "重逢的一刻")
+                    for (const city in tourData.citySongs) {
+                        const song = tourData.citySongs[city];
+                        if (song) {
+                            citySongReverseMap[song] = city;
+                        }
+                    }
 
                     // 3. 渲染页面
                     dataLoadingPlaceholder.style.display = 'none'; // 隐藏加载提示
@@ -1071,17 +1183,88 @@
                 });
             }
 
+            // (V4.2 重构) 渲染“我的见证” - 默认分段淡入 (要求 ①)
+            function renderDefaultDetails(details) {
+                if (!details || details.length === 0) return '';
+                
+                let html = '<ul class="list-disc list-inside pl-2 text-sm space-y-1 mt-2">';
+                html += details.map((detail, index) => 
+                    `<li class="detail-item-fade-in" style="animation-delay: ${index * 0.15}s;">
+                        [${detail.date} ${detail.city}] 我听到了《${detail.songs.join('》、《')}》
+                    </li>`
+                ).join('');
+                html += '</ul>';
+                return html;
+            }
+
+            // (V4.2 新增) 渲染“我的见证” - 时间轴 (要求 ②)
+            function renderTimelineDetails(details) {
+                if (!details || details.length === 0) return '';
+                
+                let html = '<div class="timeline-container">';
+                html += '<div class="timeline-line"></div>'; // 中心线
+                html += details.map((detail, index) => `
+                    <div class="timeline-item" style="animation-delay: ${index * 0.2}s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">${detail.date}</div>
+                            <div class="timeline-city">${detail.city}</div>
+                            <div class="timeline-songs">我听到了《${detail.songs.join('》、《')}》</div>
+                        </div>
+                    </div>
+                `).join('');
+                html += '</div>';
+                return html;
+            }
+
+            // (V4.2 新增) 渲染“我的见证” - 重逢卡片 (要求 ③)
+            function renderReunionDetails(details) {
+                if (!details || details.length === 0) return '';
+                
+                let html = '<div class="reunion-container">';
+                let animationIndex = 0;
+                
+                details.forEach((detail) => {
+                    detail.songs.forEach((song) => {
+                        const originalCity = citySongReverseMap[song] || '未知城市';
+                        html += `
+                        <div class="reunion-card" style="animation-delay: ${animationIndex * 0.2}s;">
+                            <h3>你听到了：《${song}》</h3>
+                            <p>这本是 <strong>${originalCity}</strong> 的限定一刻，</p>
+                            <p>而你在 <strong>[${detail.date} ${detail.city}]</strong> 与它惊喜重逢。</p>
+                        </div>`;
+                        animationIndex++;
+                    });
+                });
+                
+                html += '</div>';
+                return html;
+            }
+
+
             /**
-             * (V3 修改 - 要求 ②) 渲染单个成就页
+             * (V4.2 修改 - 重构) 渲染单个成就页 (现在是路由)
              */
             function renderAchievementPage(page, ach) {
+                // (V4.2) 1. 决定使用哪种渲染方式
+                const timelineAchievements = ['ach_origin', 'ach_workout', 'ach_meet_again', 'ach_thank_you', 'ach_this_day', 'ach_miss_you'];
                 let detailsHTML = '';
-                if (ach.details && ach.details.length > 0) {
-                    detailsHTML = ach.details.map(detail => 
-                        `<li>[${detail.date} ${detail.city}] 我听到了《${detail.songs.join('》、《')}》</li>`
-                    ).join('');
-                }
                 
+                // (V4.2) 2. 保证见证按日期排序
+                const sortedDetails = (ach.details || []).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+                if (ach.id === 'ach_reunion') {
+                    // 要求 ③: 渲染重逢卡片
+                    detailsHTML = renderReunionDetails(sortedDetails);
+                } else if (timelineAchievements.includes(ach.id)) {
+                    // 要求 ②: 渲染时间轴
+                    detailsHTML = renderTimelineDetails(sortedDetails);
+                } else {
+                    // 要求 ①: 默认使用分段淡入列表
+                    detailsHTML = renderDefaultDetails(sortedDetails);
+                }
+
+                // (V4.2) 3. 渲染页面
                 page.innerHTML = `
                     <div class="text-center w-full max-w-md" style="animation: fadeIn 0.5s ease-out;">
                         <h1 class="story-ach-title">🏆 ${ach.title}</h1>
@@ -1090,9 +1273,7 @@
                         ${detailsHTML ? `
                         <div class="story-ach-details">
                             <div class="details-title">我的见证:</div>
-                            <ul class="list-disc list-inside pl-2 text-sm space-y-1 mt-2">
-                                ${detailsHTML}
-                            </ul>
+                            ${detailsHTML} 
                         </div>
                         ` : ''}
                         
@@ -1262,7 +1443,7 @@
             function renderFullReport(page, data) {
                 page.innerHTML = `
                     <h1 class="story-title">我的旅程已汇总</h1>
-                    <p class="story-subtitle">这是我的“二十年一刻”完整报告，<br>感谢我成为这趟旅程的一部分。</p>
+                    <p class="story-subtitle">这是我的“二十年一刻”完整报告，<br>感谢我成为这一刻的一部分。</p>
                     <button id="show-full-report-btn" class="story-nav-btn">查看完整报告</button>
                 `;
                 
