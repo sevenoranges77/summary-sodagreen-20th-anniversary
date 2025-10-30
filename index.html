@@ -1300,7 +1300,7 @@
                     });
                 }
 
-                // 4. 计算 'meta_city_conquer' (城市制霸)
+                // 4. 计算 'meta_city_conquer' (城市全勤)
                 const cityShowCounts = concertList.reduce((acc, show) => {
                     acc[show.city] = (acc[show.city] || 0) + 1; return acc;
                 }, {});
@@ -1318,7 +1318,7 @@
                     metaAchievements.push({
                         id: 'meta_city_conquer',
                         title: '城市全勤',
-                        description: `我制霸了 ${conqueredCities.join('、')}！这座城市的每一刻我都未曾缺席。`,
+                        description: `我全勤了 ${conqueredCities.join('、')}！这座城市的每一刻我都未曾缺席。`,
                         type: 'experience'
                     });
                 }
