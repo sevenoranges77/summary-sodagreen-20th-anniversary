@@ -203,6 +203,23 @@
         .accordion-header.open .accordion-icon {
             transform: rotate(90deg);
         }
+        
+        /* (V4.1 新增) 全选按钮样式 */
+        .select-all-btn {
+            font-size: 0.75rem; /* 12px */
+            padding: 0.1rem 0.5rem;
+            border-radius: 99px;
+            background-color: var(--theme-bg);
+            border: 1px solid var(--theme-primary);
+            color: var(--theme-primary);
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-left: 0.5rem;
+        }
+        .select-all-btn:hover {
+            background-color: #e6f7eb;
+        }
+
 
         /* 报告卡片样式 */
         .report-card {
@@ -523,6 +540,7 @@
             async function initializeApp() {
                 try {
                     // 1. 异步获取数据
+                    // (V4.1 修复: 路径指向根目录)
                     const response = await fetch('data.json');
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -557,7 +575,9 @@
             }
             
             /**
-             * 渲染三级折叠菜单 (F1.1)
+             * (V4.1 修改) 渲染三级折叠菜单 (F1.1)
+             * - 简化“海外地区” (要求 ①)
+             * - 添加“全选”按钮 (要求 ②)
              */
             function renderAccordion() {
                 const groupedByRegion = concertList.reduce((acc, show) => {
@@ -577,7 +597,11 @@
                     html += `
                         <div class="border border-gray-200 rounded-md">
                             <div id="${regionId}-header" class="accordion-header flex justify-between items-center p-3" data-target="#${regionId}-content">
-                                <span class="font-semibold text-lg">${region}</span>
+                                <div class="flex items-center">
+                                    <span class="font-semibold text-lg">${region}</span>
+                                    <!-- V4.1: (要求 ②) L1 全选按钮 -->
+                                    <button class="select-all-btn" data-target-id="#${regionId}-content" title="全选/全不选 ${region}">全选</button>
+                                </div>
                                 <span class="accordion-icon text-gray-500">▶</span>
                             </div>
                             <div id="${regionId}-content" class="accordion-content pl-4 border-t border-gray-200">
@@ -588,46 +612,88 @@
                         return acc;
                     }, {});
 
-                    for (const city in groupedByCity) {
-                        const cityShows = groupedByCity[city];
-                        const cityId = `city-${city.replace(/\s/g, '-')}`;
-
-                        html += `
-                            <div class="border-b border-gray-200 last:border-b-0">
-                                <div id="${cityId}-header" class="accordion-header flex justify-between items-center p-3" data-target="#${cityId}-content">
-                                    <span class="font-medium">${city}</span>
-                                    <span class="accordion-icon text-gray-500">▶</span>
-                                </div>
-                                <div id="${cityId}-content" class="accordion-content pl-6 py-2 space-y-2">
-                        `;
-                        
-                        cityShows.sort((a, b) => a.order - b.order);
-                        for (const show of cityShows) {
+                    // --- V4.1: (要求 ①) 简化“海外地区” ---
+                    if (region === '海外地区') {
+                        // 直接渲染为二级勾选列表
+                        regionShows.sort((a, b) => a.order - b.order); // 按日期排序
+                        for (const show of regionShows) {
                             html += `
-                                <label class="flex items-center space-x-2 cursor-pointer">
+                                <label class="flex items-center space-x-2 cursor-pointer p-3 pl-2 border-b border-gray-100 last:border-b-0">
                                     <input type="checkbox" class="show-checkbox form-checkbox h-5 w-5 rounded" data-id="${show.id}" style="color: var(--theme-primary);">
-                                    <span>${show.name} (${show.date})</span>
+                                    <span>${show.city} (${show.date})</span>
                                 </label>
                             `;
                         }
-                        html += `</div></div>`;
+                    } else {
+                        // --- V4.1: (要求 ②) 其他地区保持三级，并添加 L2 全选 ---
+                        for (const city in groupedByCity) {
+                            const cityShows = groupedByCity[city];
+                            const cityId = `city-${city.replace(/\s/g, '-')}`;
+
+                            html += `
+                                <div class="border-b border-gray-200 last:border-b-0">
+                                    <div id="${cityId}-header" class="accordion-header flex justify-between items-center p-3" data-target="#${cityId}-content">
+                                        <div class="flex items-center">
+                                            <span class="font-medium">${city}</span>
+                                            <!-- V4.1: (要求 ②) L2 全选按钮 -->
+                                            <button class="select-all-btn" data-target-id="#${cityId}-content" title="全选/全不选 ${city}">全选</button>
+                                        </div>
+                                        <span class="accordion-icon text-gray-500">▶</span>
+                                    </div>
+                                    <div id="${cityId}-content" class="accordion-content pl-6 py-2 space-y-2">
+                            `;
+                            
+                            cityShows.sort((a, b) => a.order - b.order);
+                            for (const show of cityShows) {
+                                html += `
+                                    <label class="flex items-center space-x-2 cursor-pointer">
+                                        <input type="checkbox" class="show-checkbox form-checkbox h-5 w-5 rounded" data-id="${show.id}" style="color: var(--theme-primary);">
+                                        <span>${show.name} (${show.date})</span>
+                                    </label>
+                                `;
+                            }
+                            html += `</div></div>`;
+                        }
                     }
                     html += `</div></div>`;
                 }
                 accordionContainer.innerHTML = html;
-                activateAccordion();
+                // V4.1 修改: 调用新的激活函数
+                activateAccordionAndSelectAll();
             }
 
             /**
-             * 激活折叠菜单
+             * (V4.1 修改) 激活折叠菜单和全选按钮
+             * 使用事件委托
              */
-            function activateAccordion() {
-                document.querySelectorAll('.accordion-header').forEach(header => {
-                    header.addEventListener('click', () => {
+            function activateAccordionAndSelectAll() {
+                accordionContainer.addEventListener('click', (e) => {
+                    const selectAllBtn = e.target.closest('.select-all-btn');
+                    const header = e.target.closest('.accordion-header');
+
+                    if (selectAllBtn) {
+                        // --- Handle Select All (Request 2) ---
+                        e.stopPropagation(); // 阻止折叠菜单展开/关闭
+                        const targetId = selectAllBtn.dataset.targetId;
+                        const content = document.querySelector(targetId);
+                        if (!content) return;
+
+                        const checkboxes = content.querySelectorAll('.show-checkbox');
+                        if (checkboxes.length === 0) return;
+
+                        // 核心逻辑: 如果有任何一个没被选中，则全选；否则全不选
+                        const shouldCheck = Array.from(checkboxes).some(box => !box.checked);
+                        checkboxes.forEach(box => {
+                            box.checked = shouldCheck;
+                        });
+                    
+                    } else if (header) {
+                        // --- Handle Accordion (Original Logic) ---
                         const content = document.querySelector(header.dataset.target);
+                        if (!content) return;
                         header.classList.toggle('open');
                         content.classList.toggle('open');
-                    });
+                    }
                 });
             }
 
@@ -1081,7 +1147,7 @@
             }
 
             /**
-             * (V3 修改) 分级页 (L1-L4)
+             * (V3 修改) 渲染稀有度分级页 (L1-L4)
              */
             function renderRarityLevelsPage(page, data) {
                 const renderSongList = (songs) => {
@@ -1196,7 +1262,7 @@
             function renderFullReport(page, data) {
                 page.innerHTML = `
                     <h1 class="story-title">我的旅程已汇总</h1>
-                    <p class="story-subtitle">这是我的“二十年一刻”完整报告，<br>感谢我成为这一刻的一部分。</p>
+                    <p class="story-subtitle">这是我的“二十年一刻”完整报告，<br>感谢我成为这趟旅程的一部分。</p>
                     <button id="show-full-report-btn" class="story-nav-btn">查看完整报告</button>
                 `;
                 
@@ -1698,3 +1764,4 @@
     </script>
 </body>
 </html>
+
