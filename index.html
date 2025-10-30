@@ -1197,10 +1197,15 @@
                 return html;
             }
 
-            // (V4.2 新增) 渲染“我的见证” - 时间轴 (要求 ②)
-            function renderTimelineDetails(details) {
+            // (V4.3 修改) 渲染“我的见证” - 时间轴 (要求 ①, ②, ③)
+            function renderTimelineDetails(details, ach) {
                 if (!details || details.length === 0) return '';
-                
+
+                // (V4.3) 要求①: 定义哪些成就只显示城市，不显示歌曲
+                const simpleTimelineAchievements = ['ach_origin', 'ach_workout', 'ach_meet_again', 'ach_thank_you', 'ach_this_day', 'ach_miss_you'];
+                // (V4.3) 要求②, ③: 'ach_fishleong', 'ach_unreleased' 会返回 false，从而显示歌曲
+                const showSongs = !simpleTimelineAchievements.includes(ach.id);
+
                 let html = '<div class="timeline-container">';
                 html += '<div class="timeline-line"></div>'; // 中心线
                 html += details.map((detail, index) => `
@@ -1209,7 +1214,7 @@
                         <div class="timeline-content">
                             <div class="timeline-date">${detail.date}</div>
                             <div class="timeline-city">${detail.city}</div>
-                            <div class="timeline-songs">我听到了《${detail.songs.join('》、《')}》</div>
+                            ${showSongs ? `<div class="timeline-songs">我听到了《${detail.songs.join('》、《')}》</div>` : ''}
                         </div>
                     </div>
                 `).join('');
@@ -1243,11 +1248,12 @@
 
 
             /**
-             * (V4.2 修改 - 重构) 渲染单个成就页 (现在是路由)
+             * (V4.3 修改 - 重构) 渲染单个成就页 (现在是路由)
              */
             function renderAchievementPage(page, ach) {
-                // (V4.2) 1. 决定使用哪种渲染方式
-                const timelineAchievements = ['ach_origin', 'ach_workout', 'ach_meet_again', 'ach_thank_you', 'ach_this_day', 'ach_miss_you'];
+                // (V4.3) 1. 决定使用哪种渲染方式
+                // (要求 ②, ③) '鱼丁糸' 和 '遗珠' 也使用时间轴
+                const timelineAchievements = ['ach_origin', 'ach_workout', 'ach_meet_again', 'ach_thank_you', 'ach_this_day', 'ach_miss_you', 'ach_fishleong', 'ach_unreleased'];
                 let detailsHTML = '';
                 
                 // (V4.2) 2. 保证见证按日期排序
@@ -1257,10 +1263,11 @@
                     // 要求 ③: 渲染重逢卡片
                     detailsHTML = renderReunionDetails(sortedDetails);
                 } else if (timelineAchievements.includes(ach.id)) {
-                    // 要求 ②: 渲染时间轴
-                    detailsHTML = renderTimelineDetails(sortedDetails);
+                    // 要求 ①, ②, ③: 渲染时间轴
+                    // (V4.3) 传入 'ach' 本身，让渲染器决定是否显示歌曲
+                    detailsHTML = renderTimelineDetails(sortedDetails, ach); 
                 } else {
-                    // 要求 ①: 默认使用分段淡入列表
+                    // 要求 ① (默认): 默认使用分段淡入列表 (例如 台风)
                     detailsHTML = renderDefaultDetails(sortedDetails);
                 }
 
