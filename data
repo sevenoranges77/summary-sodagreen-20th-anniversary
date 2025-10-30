@@ -1,0 +1,380 @@
+{
+  "concertList": [
+    { "id": "hk01", "name": "3/22", "date": "2024-03-22", "city": "香港", "region": "港台地区", "order": 1 },
+    { "id": "hk02", "name": "3/23", "date": "2024-03-23", "city": "香港", "region": "港台地区", "order": 2 },
+    { "id": "hk03", "name": "3/24", "date": "2024-03-24", "city": "香港", "region": "港台地区", "order": 3 },
+    { "id": "hz01", "name": "4/13", "date": "2024-04-13", "city": "杭州", "region": "大陆地区", "order": 4 },
+    { "id": "hz02", "name": "4/14", "date": "2024-04-14", "city": "杭州", "region": "大陆地区", "order": 5 },
+    { "id": "cd01", "name": "5/4", "date": "2024-05-04", "city": "成都", "region": "大陆地区", "order": 6 },
+    { "id": "cd02", "name": "5/5", "date": "2024-05-05", "city": "成都", "region": "大陆地区", "order": 7 },
+    { "id": "zz01", "name": "5/18", "date": "2024-05-18", "city": "郑州", "region": "大陆地区", "order": 8 },
+    { "id": "zz02", "name": "5/19", "date": "2024-05-19", "city": "郑州", "region": "大陆地区", "order": 9 },
+    { "id": "sz01", "name": "6/1", "date": "2024-06-01", "city": "深圳", "region": "大陆地区", "order": 10 },
+    { "id": "sz02", "name": "6/2", "date": "2024-06-02", "city": "深圳", "region": "大陆地区", "order": 11 },
+    { "id": "bj01", "name": "6/22", "date": "2024-06-22", "city": "北京", "region": "大陆地区", "order": 12 },
+    { "id": "bj02", "name": "6/23", "date": "2024-06-23", "city": "北京", "region": "大陆地区", "order": 13 },
+    { "id": "wh01", "name": "7/20", "date": "2024-07-20", "city": "武汉", "region": "大陆地区", "order": 14 },
+    { "id": "wh02", "name": "7/21", "date": "2024-07-21", "city": "武汉", "region": "大陆地区", "order": 15 },
+    { "id": "xm01", "name": "8/3", "date": "2024-08-03", "city": "厦门", "region": "大陆地区", "order": 16 },
+    { "id": "xm02", "name": "8/4", "date": "2024-08-04", "city": "厦门", "region": "大陆地区", "order": 17 },
+    { "id": "cq01", "name": "8/17", "date": "2024-08-17", "city": "重庆", "region": "大陆地区", "order": 18 },
+    { "id": "cq02", "name": "8/18", "date": "2024-08-18", "city": "重庆", "region": "大陆地区", "order": 19 },
+    { "id": "gz01", "name": "8/31", "date": "2024-08-31", "city": "广州", "region": "大陆地区", "order": 20 },
+    { "id": "gz02", "name": "9/1", "date": "2024-09-01", "city": "广州", "region": "大陆地区", "order": 21 },
+    { "id": "sh01", "name": "9/16", "date": "2024-09-16", "city": "上海", "region": "大陆地区", "order": 22 },
+    { "id": "sh02", "name": "9/17", "date": "2024-09-17", "city": "上海", "region": "大陆地区", "order": 23 },
+    { "id": "nj01", "name": "9/27", "date": "2024-09-27", "city": "南京", "region": "大陆地区", "order": 24 },
+    { "id": "nj02", "name": "9/28", "date": "2024-09-28", "city": "南京", "region": "大陆地区", "order": 25 },
+    { "id": "tp01", "name": "2/22", "date": "2025-02-22", "city": "台北", "region": "港台地区", "order": 26 },
+    { "id": "tp02", "name": "2/23", "date": "2025-02-23", "city": "台北", "region": "港台地区", "order": 27 },
+    { "id": "sin", "name": "3/8", "date": "2025-03-08", "city": "新加坡", "region": "海外地区", "order": 28 },
+    { "id": "syd", "name": "3/30", "date": "2025-03-30", "city": "悉尼", "region": "海外地区", "order": 29 },
+    { "id": "mel", "name": "4/2", "date": "2025-04-02", "city": "墨尔本", "region": "海外地区", "order": 30 },
+    { "id": "lon", "name": "4/20", "date": "2025-04-20", "city": "伦敦", "region": "海外地区", "order": 31 },
+    { "id": "ber", "name": "4/26", "date": "2025-04-26", "city": "柏林", "region": "海外地区", "order": 32 },
+    { "id": "tyo", "name": "5/29", "date": "2025-05-29", "city": "东京", "region": "海外地区", "order": 33 },
+    { "id": "gx01", "name": "8/9", "date": "2025-08-09", "city": "高雄", "region": "港台地区", "order": 34 },
+    { "id": "gx02", "name": "8/10", "date": "2025-08-10", "city": "高雄", "region": "港台地区", "order": 35 }
+  ],
+  "discography": [
+    {
+      "albumName": "《苏打绿同名专辑》",
+      "tracks": ["后悔莫及", "飞鱼", "oh oh oh oh......", "That Moment Is Over", "是我的海", "漂浮", "频率", "你喔!", "降落练习存在孪生基因", "相对论Ⅳ", "窥"]
+    },
+    {
+      "albumName": "《小宇宙》",
+      "tracks": ["You are, you will", "小宇宙", "小情歌", "符号", "暂时失控", "被雨困住的城市", "已经", "吵", "背着你", "坠落", "无言歌"]
+    },
+    {
+      "albumName": "《无与伦比的美丽》",
+      "tracks": ["游乐", "花茶", "四季狂想", "左边", "无与伦B的美丽", "白日出没的月球", "这天", "简单生活", "城市", "相信"]
+    },
+    {
+      "albumName": "《陪我歌唱》",
+      "tracks": ["呢喃", "陪我歌唱", "爱人动物", "迟到千年", "记念", "蓝眼睛", "我只在乎你"]
+    },
+    {
+      "albumName": "《十年一刻》",
+      "tracks": ["红鞋女孩", "可爱的玫瑰花", "Close To You", "牵阮的手", "追追追", "笑闹人间", "十年一刻"]
+    },
+    {
+      "albumName": "《你在烦恼什么》",
+      "tracks": ["幸福额度", "你被写在我的歌里", "如果凝结就是爱", "喜欢寂寞", "燕窝", "茧", "当我们一起走过", "浪漫派", "控制狂", "你在烦恼什么"]
+    },
+    {
+      "albumName": "《春·日光》",
+      "tracks": ["融雪之前", "牧神搭上春色的火车，而", "日光", "在我们之间", "各站停靠", "一千座喷泉", "交响梦", "异次元的玫瑰", "嬉戏之后", "早点回家"]
+    },
+    {
+      "albumName": "《夏/狂热》",
+      "tracks": ["掌声落下", "他夏了夏天", "蝉想", "包围", "御花园", "彼得与狼", "共舞", "无眠", "狂热", "煽动", "近未来"]
+    },
+    {
+      "albumName": "《秋：故事》",
+      "tracks": ["故事", "从一片落叶开始", "独处的时候", "我好想你", "偷闲的翅膀", "天天晴朗", "说了再见以后", "我们走了一光年", "再遇见", "拾穗", "你心里最后一个", "小星星"]
+    },
+    {
+      "albumName": "《冬 未了》",
+      "tracks": ["痛快的哀艳", "对杀人狂指控", "地平线", "我们不懂", "博物馆", "回车诺比的梦", "下雨的夜晚", "他举起右手点名", "Everyone", "墙外的风景", "未了", "Must Keep Singing"]
+    },
+    {
+      "albumName": "《池堂怪谈》",
+      "tracks": ["我就奇怪", "蜂蜜人参", "Joyful Day", "在世界的尽头大声地说我恨你", "Sorry青春", "脑波弱", "我就是个朴实无华的Bass 手", "先说先赢", "星月花火", "终点起点", "沙发里有沙发Radio"]
+    }
+  ],
+  "tourData": {
+    "fixedSongs": [
+      "日光", "早点回家", "你被写在我的歌里", "迟到千年", "小情歌", "狂热", "控制狂", "无眠", "当我们一起走过", "频率", "故事", "说了再见以后", "你在烦恼什么", "陪我歌唱", "无与伦B的美丽", "Everyone", "喜欢寂寞", "追追追", "痛快的哀艳", "Tomorrow will be fine."
+    ],
+    "citySongs": {
+      "香港": "你不需要多完美", "杭州": "原汁原味", "成都": "吟游", "郑州": "黎明前最暗时候", "深圳": "夜光", "北京": "梦", "武汉": "漂白", "厦门": "To You", "重庆": "一整天", "广州": "面面相觑", "上海": "应许", "南京": "饥饿再生", "台北": "Silent Angel", "新加坡": "白日梦绳索", "悉尼": "旅人", "墨尔本": "夜来疯", "伦敦": "悬丝傀儡", "柏林": "Let's Dream about Love", "东京": "生命乐章", "高雄": "只有可以"
+    },
+    "encoreSetlists": {
+      "hk01": ["相信", "近未来", "快乐颂", "他举起右手点名", "蝉想", "再遇见", "是我的海", "如果凝结就是爱", "笑闹人间"],
+      "hk02": ["非常女", "被雨伤透", "包围", "一想到你呀", "相对论Ⅳ", "笑闹人间", "天天晴朗", "我的未来不是梦", "交响梦"],
+      "hk03": ["无状态", "四季狂想", "小宇宙", "近未来", "幸福额度", "天天晴朗", "罗生门", "蓝眼睛", "御花园", "左边"],
+      "hz01": ["近未来", "浪漫派", "下雨的夜晚", "相信", "再遇见", "是我的海", "这天", "飞鱼"],
+      "hz02": ["小宇宙", "如果凝结就是爱", "他夏了夏天", "回车诺比的梦", "快乐颂", "拾穂", "飞鱼", "忧愁", "是我的海"],
+      "cd01": ["这天", "忧愁", "再遇见", "他举起右手点名", "罗生门", "近未来", "博物馆", "下雨的夜晚", "空气中的视听与幻觉"],
+      "cd02": ["罗生门", "是我的海", "下雨的夜晚", "原汁原味", "笑闹人间", "终点起点", "他举起右手点名", "你不需要多完美"],
+      "zz01": ["一起喔喔", "雨中的操场", "跟着你到天边", "下雨的夜晚", "是我的海", "沙发里有沙发Radio", "小宇宙"],
+      "zz02": ["女爵", "掉了", "吵", "先说先赢", "带我走", "博物馆", "异次元的玫瑰", "对杀人狂指控", "在世界的尽头大声地说我恨你", "再遇见"],
+      "sz01": ["融雪之前", "蓝眼睛", "天天晴朗", "漂浮", "他举起右手点名", "彼得与狼", "这天", "在世界的尽头大声地说我恨你"],
+      "sz02": ["墙外的风景", "小宇宙", "包围", "空气中的视听与幻觉", "共舞", "回车诺比的梦", "蜘蛛天空", "拾穂", "相信"],
+      "bj01": ["拾穂", "小宇宙", "笑闹人间", "如果你冷", "左边", "落寞", "黑猫白猫", "城市", "脑波弱", "交响梦"],
+      "bj02": ["天天晴朗", "我好想你", "是我的海", "落寞", "燕窝", "笑闹人间", "黑猫白猫", "左边"],
+      "wh01": ["Sorry青春", "近未来", "如果凝结就是爱", "是我的海", "再遇见", "他夏了夏天", "相信", "蜘蛛天空", "先说先赢", "原谅"],
+      "wh02": ["天天晴朗", "他举起右手点名", "四季狂想", "飞鱼", "罗生门", "这天", "偷闲的翅膀", "再遇见"],
+      "xm01": ["相信", "空气中的视听与幻觉", "幸福额度", "左边", "终点起点", "这天", "他夏了夏天"],
+      "xm02": ["近未来", "蝉想", "幸福额度", "原谅", "我只在乎你", "带我走", "小宇宙", "忧愁", "交响梦"],
+      "cq01": ["彼得与狼", "Sorry青春", "窥", "简单生活", "城市", "掌声落下", "一千座喷泉", "地平线", "一起喔喔"],
+      "cq02": ["回车诺比的梦", "地平线", "脑波弱", "先说先赢", "你和我的时光", "蜂蜜人参", "他举起右手点名", "煽动", "小宇宙", "共舞"],
+      "gz01": ["掌声落下", "下雨的夜晚", "御花园", "蝉想", "这天", "空气中的视听与幻觉", "偷闲的翅膀", "终点起点", "燕窝", "我只在乎你"],
+      "gz02": ["他夏了夏天", "蝉想", "我只在乎你", "是我的海", "小时候", "终点起点", "他举起右手点名", "包围"],
+      "sh01": ["一整天", "开到荼靡", "你不需要多完美", "黎明前最暗时候", "落寞", "百年孤寂", "那些花儿", "从一片落叶开始", "背着你"],
+      "sh02": ["从一片落叶开始", "漂浮", "梦", "栅栏间隙偷窥你", "九月", "安静在沸腾", "吵", "鱼儿离不开水", "快乐颂"],
+      "nj01": ["我好想你", "罗生门", "我只在乎你", "我在欧洲打电话给你", "拾穗", "你心里最后一个", "他夏了夏天", "偷闲的翅膀", "天天晴朗"],
+      "nj02": ["我的未来不是梦", "我好想你", "你心里最后一个", "相信", "从一片落叶开始", "蝉想", "这天", "如果你冷", "空气中的视听与幻觉"],
+      "tp01": ["对杀人狂指控", "拾穗", "罗生门", "原谅", "一起喔喔", "百年孤寂", "开到荼蘼", "煽动", "再遇见", "我们走了一光年"],
+      "tp02": ["我好想你", "空气中的视听与幻觉", "I Don't Care", "白日出没的月球", "你心里最后一个", "十七", "御花园", "没有烟抽的日子", "相信"],
+      "sin": ["舞女", "如果你冷", "带我走", "相对论Ⅳ", "美错", "已经", "城里的月光", "御花园", "蝉想", "墙外的风景", "煽动"],
+      "syd": ["小宇宙", "你心里最后一个", "燕窝", "被雨伤透", "未了", "你喔！", "女爵", "再遇见", "红豆", "好好爱你"],
+      "mel": ["你", "你和我的时光", "艳火", "再遇见", "我好想你", "你喔！", "小时候", "空气中的视听与幻觉", "红豆", "蝉想", "带我走"],
+      "lon": ["艳火", "空气中的视听与幻觉", "他夏了夏天", "茧", "有形的翅膀", "小宇宙", "浪漫派", "被雨困住的城市", "近未来"],
+      "ber": ["暂时失控", "我们不懂", "坠落", "黄昏的故乡", "记念", "是我的海", "朱古力", "回车诺比的梦", "oh oh oh oh......", "在世界的尽头大声地说我恨你", "他举起右手点名", "如果你冷"],
+      "tyo": ["牧神搭上春色的火车，而", "小时候", "岛唄", "The Lonely Goatherd+山顶黑狗兄", "Believe In Music", "Cash Machine", "oh oh oh oh......", "近未来"],
+      "gx01": ["面面相觑", "这天", "煽动", "蜘蛛天空", "蝉想", "小时候", "左边", "oh oh oh oh......", "是我的海", "偷闲的翅膀"],
+      "gx02": ["Rootless Tree", "原汁原味", "墙外的风景", "暂时失控", "笑闹人间", "燕窝", "你喔！", "浪漫派", "相信", "空气中的视听与幻觉"]
+    }
+  },
+  "songRarityDB": {
+    "相信": { "tourCount": 8, "firstShowId": "hk01", "lastShowId": "gx02" },
+    "近未来": { "tourCount": 8, "firstShowId": "hk01", "lastShowId": "tyo" },
+    "快乐颂": { "tourCount": 3, "firstShowId": "hk01", "lastShowId": "sh02" },
+    "他举起右手点名": { "tourCount": 8, "firstShowId": "hk01", "lastShowId": "ber" },
+    "蝉想": { "tourCount": 10, "firstShowId": "hk01", "lastShowId": "gx01" },
+    "再遇见": { "tourCount": 9, "firstShowId": "hk01", "lastShowId": "mel" },
+    "是我的海": { "tourCount": 11, "firstShowId": "hk01", "lastShowId": "gx01" },
+    "如果凝结就是爱": { "tourCount": 3, "firstShowId": "hk01", "lastShowId": "wh01" },
+    "笑闹人间": { "tourCount": 6, "firstShowId": "hk01", "lastShowId": "gx02" },
+    "非常女": { "tourCount": 1, "firstShowId": "hk02", "lastShowId": "hk02" },
+    "被雨伤透": { "tourCount": 2, "firstShowId": "hk02", "lastShowId": "syd" },
+    "包围": { "tourCount": 3, "firstShowId": "hk02", "lastShowId": "gz02" },
+    "一想到你呀": { "tourCount": 1, "firstShowId": "hk02", "lastShowId": "hk02" },
+    "相对论Ⅳ": { "tourCount": 2, "firstShowId": "hk02", "lastShowId": "sin" },
+    "天天晴朗": { "tourCount": 6, "firstShowId": "hk02", "lastShowId": "nj01" },
+    "我的未来不是梦": { "tourCount": 2, "firstShowId": "hk02", "lastShowId": "nj02" },
+    "交响梦": { "tourCount": 3, "firstShowId": "hk02", "lastShowId": "xm02" },
+    "无状态": { "tourCount": 1, "firstShowId": "hk03", "lastShowId": "hk03" },
+    "四季狂想": { "tourCount": 2, "firstShowId": "hk03", "lastShowId": "wh02" },
+    "小宇宙": { "tourCount": 9, "firstShowId": "hk03", "lastShowId": "lon" },
+    "幸福额度": { "tourCount": 3, "firstShowId": "hk03", "lastShowId": "xm02" },
+    "罗生门": { "tourCount": 6, "firstShowId": "hk03", "lastShowId": "tp01" },
+    "蓝眼睛": { "tourCount": 2, "firstShowId": "hk03", "lastShowId": "sz01" },
+    "御花园": { "tourCount": 4, "firstShowId": "hk03", "lastShowId": "sin" },
+    "左边": { "tourCount": 5, "firstShowId": "hk03", "lastShowId": "gx01" },
+    "浪漫派": { "tourCount": 3, "firstShowId": "hz01", "lastShowId": "gx02" },
+    "下雨的夜晚": { "tourCount": 5, "firstShowId": "hz01", "lastShowId": "gz01" },
+    "这天": { "tourCount": 8, "firstShowId": "hz01", "lastShowId": "gx01" },
+    "飞鱼": { "tourCount": 3, "firstShowId": "hz01", "lastShowId": "wh02" },
+    "他夏了夏天": { "tourCount": 6, "firstShowId": "hz02", "lastShowId": "lon" },
+    "回车诺比的梦": { "tourCount": 5, "firstShowId": "hz02", "lastShowId": "ber" },
+    "拾穂": { "tourCount": 5, "firstShowId": "hz02", "lastShowId": "tp01" },
+    "忧愁": { "tourCount": 3, "firstShowId": "hz02", "lastShowId": "xm02" },
+    "博物馆": { "tourCount": 2, "firstShowId": "cd01", "lastShowId": "zz02" },
+    "空气中的视听与幻觉": { "tourCount": 11, "firstShowId": "cd01", "lastShowId": "gx02" },
+    "原汁原味": { "tourCount": 2, "firstShowId": "cd02", "lastShowId": "gx02" },
+    "终点起点": { "tourCount": 4, "firstShowId": "cd02", "lastShowId": "gz02" },
+    "你不需要多完美": { "tourCount": 2, "firstShowId": "cd02", "lastShowId": "sh01" },
+    "一起喔喔": { "tourCount": 3, "firstShowId": "zz01", "lastShowId": "tp01" },
+    "雨中的操场": { "tourCount": 1, "firstShowId": "zz01", "lastShowId": "zz01" },
+    "跟着你到天边": { "tourCount": 1, "firstShowId": "zz01", "lastShowId": "zz01" },
+    "沙发里有沙发Radio": { "tourCount": 1, "firstShowId": "zz01", "lastShowId": "zz01" },
+    "女爵": { "tourCount": 2, "firstShowId": "zz02", "lastShowId": "syd" },
+    "掉了": { "tourCount": 1, "firstShowId": "zz02", "lastShowId": "zz02" },
+    "吵": { "tourCount": 2, "firstShowId": "zz02", "lastShowId": "sh02" },
+    "先说先赢": { "tourCount": 3, "firstShowId": "zz02", "lastShowId": "cq02" },
+    "带我走": { "tourCount": 4, "firstShowId": "zz02", "lastShowId": "mel" },
+    "异次元的玫瑰": { "tourCount": 1, "firstShowId": "zz02", "lastShowId": "zz02" },
+    "对杀人狂指控": { "tourCount": 2, "firstShowId": "zz02", "lastShowId": "tp01" },
+    "在世界的尽头大声地说我恨你": { "tourCount": 3, "firstShowId": "zz02", "lastShowId": "ber" },
+    "融雪之前": { "tourCount": 1, "firstShowId": "sz01", "lastShowId": "sz01" },
+    "漂浮": { "tourCount": 2, "firstShowId": "sz01", "lastShowId": "sh02" },
+    "彼得与狼": { "tourCount": 2, "firstShowId": "sz01", "lastShowId": "cq01" },
+    "墙外的风景": { "tourCount": 3, "firstShowId": "sz02", "lastShowId": "gx02" },
+    "共舞": { "tourCount": 2, "firstShowId": "sz02", "lastShowId": "cq02" },
+    "蜘蛛天空": { "tourCount": 3, "firstShowId": "sz02", "lastShowId": "gx01" },
+    "如果你冷": { "tourCount": 4, "firstShowId": "bj01", "lastShowId": "ber" },
+    "落寞": { "tourCount": 3, "firstShowId": "bj01", "lastShowId": "sh01" },
+    "黑猫白猫": { "tourCount": 2, "firstShowId": "bj01", "lastShowId": "bj02" },
+    "城市": { "tourCount": 2, "firstShowId": "bj01", "lastShowId": "cq01" },
+    "脑波弱": { "tourCount": 2, "firstShowId": "bj01", "lastShowId": "cq02" },
+    "我好想你": { "tourCount": 5, "firstShowId": "bj02", "lastShowId": "mel" },
+    "燕窝": { "tourCount": 4, "firstShowId": "bj02", "lastShowId": "gx02" },
+    "Sorry青春": { "tourCount": 2, "firstShowId": "wh01", "lastShowId": "cq01" },
+    "原谅": { "tourCount": 3, "firstShowId": "wh01", "lastShowId": "tp01" },
+    "偷闲的翅膀": { "tourCount": 4, "firstShowId": "wh02", "lastShowId": "gx01" },
+    "我只在乎你": { "tourCount": 4, "firstShowId": "xm02", "lastShowId": "nj01" },
+    "窥": { "tourCount": 1, "firstShowId": "cq01", "lastShowId": "cq01" },
+    "简单生活": { "tourCount": 1, "firstShowId": "cq01", "lastShowId": "cq01" },
+    "掌声落下": { "tourCount": 2, "firstShowId": "cq01", "lastShowId": "gz01" },
+    "一千座喷泉": { "tourCount": 1, "firstShowId": "cq01", "lastShowId": "cq01" },
+    "地平线": { "tourCount": 2, "firstShowId": "cq01", "lastShowId": "cq02" },
+    "你和我的时光": { "tourCount": 2, "firstShowId": "cq02", "lastShowId": "mel" },
+    "蜂蜜人参": { "tourCount": 1, "firstShowId": "cq02", "lastShowId": "cq02" },
+    "煽动": { "tourCount": 4, "firstShowId": "cq02", "lastShowId": "gx01" },
+    "小时候": { "tourCount": 4, "firstShowId": "gz02", "lastShowId": "tyo" },
+    "一整天": { "tourCount": 1, "firstShowId": "sh01", "lastShowId": "sh01" },
+    "开到荼靡": { "tourCount": 2, "firstShowId": "sh01", "lastShowId": "tp01" },
+    "黎明前最暗时候": { "tourCount": 1, "firstShowId": "sh01", "lastShowId": "sh01" },
+    "百年孤寂": { "tourCount": 2, "firstShowId": "sh01", "lastShowId": "tp01" },
+    "那些花儿": { "tourCount": 1, "firstShowId": "sh01", "lastShowId": "sh01" },
+    "从一片落叶开始": { "tourCount": 3, "firstShowId": "sh01", "lastShowId": "nj02" },
+    "背着你": { "tourCount": 1, "firstShowId": "sh01", "lastShowId": "sh01" },
+    "梦": { "tourCount": 1, "firstShowId": "sh02", "lastShowId": "sh02" },
+    "栅栏间隙偷窥你": { "tourCount": 1, "firstShowId": "sh02", "lastShowId": "sh02" },
+    "九月": { "tourCount": 1, "firstShowId": "sh02", "lastShowId": "sh02" },
+    "安静在沸腾": { "tourCount": 1, "firstShowId": "sh02", "lastShowId": "sh02" },
+    "鱼儿离不开水": { "tourCount": 1, "firstShowId": "sh02", "lastShowId": "sh02" },
+    "我在欧洲打电话给你": { "tourCount": 1, "firstShowId": "nj01", "lastShowId": "nj01" },
+    "你心里最后一个": { "tourCount": 4, "firstShowId": "nj01", "lastShowId": "syd" },
+    "我们走了一光年": { "tourCount": 1, "firstShowId": "tp01", "lastShowId": "tp01" },
+    "I Don't Care": { "tourCount": 1, "firstShowId": "tp02", "lastShowId": "tp02" },
+    "白日出没的月球": { "tourCount": 1, "firstShowId": "tp02", "lastShowId": "tp02" },
+    "十七": { "tourCount": 1, "firstShowId": "tp02", "lastShowId": "tp02" },
+    "没有烟抽的日子": { "tourCount": 1, "firstShowId": "tp02", "lastShowId": "tp02" },
+    "舞女": { "tourCount": 1, "firstShowId": "sin", "lastShowId": "sin" },
+    "美错": { "tourCount": 1, "firstShowId": "sin", "lastShowId": "sin" },
+    "已经": { "tourCount": 1, "firstShowId": "sin", "lastShowId": "sin" },
+    "城里的月光": { "tourCount": 1, "firstShowId": "sin", "lastShowId": "sin" },
+    "未了": { "tourCount": 1, "firstShowId": "syd", "lastShowId": "syd" },
+    "你喔！": { "tourCount": 3, "firstShowId": "syd", "lastShowId": "gx02" },
+    "红豆": { "tourCount": 2, "firstShowId": "syd", "lastShowId": "mel" },
+    "好好爱你": { "tourCount": 1, "firstShowId": "syd", "lastShowId": "syd" },
+    "你": { "tourCount": 1, "firstShowId": "mel", "lastShowId": "mel" },
+    "艳火": { "tourCount": 2, "firstShowId": "mel", "lastShowId": "lon" },
+    "茧": { "tourCount": 1, "firstShowId": "lon", "lastShowId": "lon" },
+    "有形的翅膀": { "tourCount": 1, "firstShowId": "lon", "lastShowId": "lon" },
+    "被雨困住的城市": { "tourCount": 1, "firstShowId": "lon", "lastShowId": "lon" },
+    "暂时失控": { "tourCount": 2, "firstShowId": "ber", "lastShowId": "gx02" },
+    "我们不懂": { "tourCount": 1, "firstShowId": "ber", "lastShowId": "ber" },
+    "坠落": { "tourCount": 1, "firstShowId": "ber", "lastShowId": "ber" },
+    "黄昏的故乡": { "tourCount": 1, "firstShowId": "ber", "lastShowId": "ber" },
+    "记念": { "tourCount": 1, "firstShowId": "ber", "lastShowId": "ber" },
+    "朱古力": { "tourCount": 1, "firstShowId": "ber", "lastShowId": "ber" },
+    "oh oh oh oh......": { "tourCount": 3, "firstShowId": "ber", "lastShowId": "gx01" },
+    "牧神搭上春色的火车，而": { "tourCount": 1, "firstShowId": "tyo", "lastShowId": "tyo" },
+    "岛唄": { "tourCount": 1, "firstShowId": "tyo", "lastShowId": "tyo" },
+    "The Lonely Goatherd+山顶黑狗兄": { "tourCount": 1, "firstShowId": "tyo", "lastShowId": "tyo" },
+    "Believe In Music": { "tourCount": 1, "firstShowId": "tyo", "lastShowId": "tyo" },
+    "Cash Machine": { "tourCount": 1, "firstShowId": "tyo", "lastShowId": "tyo" },
+    "面面相觑": { "tourCount": 1, "firstShowId": "gx01", "lastShowId": "gx01" },
+    "Rootless Tree": { "tourCount": 1, "firstShowId": "gx02", "lastShowId": "gx02" }
+  },
+  "achievementDB": [
+    {
+      "id": "ach_typhoon",
+      "title": "一起经历台风的生死之交",
+      "description": "“几十年一遇的台风，我们依旧相聚” 你和苏打绿一起在上海见证了台风天的演出。",
+      "type": "experience",
+      "triggerShows": ["sh01", "sh02"]
+    },
+    {
+      "id": "ach_fishleong",
+      "title": "在苏打绿现场听到鱼丁糸",
+      "description": "“这是苏打绿的演唱会吗？” 你在现场解锁了来自“鱼丁糸”的歌曲！",
+      "type": "song",
+      "triggerMap": {
+        "zz01": ["沙发里有沙发Radio"],
+        "zz02": ["先说先赢", "在世界的尽头大声地说我恨你"],
+        "sz01": ["在世界的尽头大声地说我恨你"],
+        "bj01": ["脑波弱"],
+        "wh01": ["Sorry青春"],
+        "cq01": ["Sorry青春"],
+        "cq02": ["脑波弱", "先说先赢", "蜂蜜人参"],
+        "ber": ["在世界的尽头大声地说我恨你"]
+      }
+    },
+    {
+      "id": "ach_origin",
+      "title": "陪苏打绿回望起点",
+      "description": "你听到了2004年的第一首单曲，再一次回望原点。",
+      "lyric": "大约凌晨三点半醒过来，莫名其妙喝了一杯苏打，厌世气泡嗝出一片绿林，微微不安",
+      "type": "song",
+      "triggerMap": {
+        "cd01": ["空气中的视听与幻觉"],
+        "sz02": ["空气中的视听与幻觉"],
+        "xm01": ["空气中的视听与幻觉"],
+        "gz01": ["空气中的视听与幻觉"],
+        "nj02": ["空气中的视听与幻觉"],
+        "tp02": ["空气中的视听与幻觉"],
+        "mel": ["空气中的视听与幻觉"],
+        "lon": ["空气中的视听与幻觉"],
+        "gx02": ["空气中的视听与幻觉"]
+      }
+    },
+    {
+      "id": "ach_workout",
+      "title": "大型健身现场",
+      "description": "跟着家凯一起锻炼手臂肌肉！你参与了<天天晴朗>的全场挥手律动！",
+      "type": "song",
+      "triggerMap": {
+        "hk02": ["天天晴朗"],
+        "hk03": ["天天晴朗"],
+        "sz01": ["天天晴朗"],
+        "bj02": ["天天晴朗"],
+        "wh02": ["天天晴朗"],
+        "nj01": ["天天晴朗"]
+      }
+    },
+    {
+      "id": "ach_meet_again",
+      "title": "约定好要再遇见",
+      "description": "听过<再遇见>就真的要和苏打绿在不远的未来再遇见哦！",
+      "type": "song",
+      "triggerMap": {
+        "hk01": ["再遇见"],
+        "hz01": ["再遇见"],
+        "cd01": ["再遇见"],
+        "zz02": ["再遇见"],
+        "wh01": ["再遇见"],
+        "wh02": ["再遇见"],
+        "tp01": ["再遇见"],
+        "syd": ["再遇见"],
+        "mel": ["再遇见"]
+      }
+    },
+    {
+      "id": "ach_thank_you",
+      "title": "和苏打绿互道谢谢",
+      "description": "“和全宇宙的朋友说声谢谢！” 你在<小宇宙>中收到了来自苏打绿的专属感谢。",
+      "type": "song",
+      "triggerMap": {
+        "hk03": ["小宇宙"],
+        "hz02": ["小宇宙"],
+        "zz01": ["小宇宙"],
+        "sz02": ["小宇宙"],
+        "bj01": ["小宇宙"],
+        "xm02": ["小宇宙"],
+        "cq02": ["小宇宙"],
+        "syd": ["小宇宙"],
+        "lon": ["小宇宙"]
+      }
+    },
+    {
+      "id": "ach_this_day",
+      "title": "和苏打绿一起记住这一天",
+      "description": "请让我在你身边，一起纪念这一天",
+      "type": "song",
+      "triggerMap": {
+        "hz01": ["这天"],
+        "cd01": ["这天"],
+        "sz01": ["这天"],
+        "wh02": ["这天"],
+        "xm01": ["这天"],
+        "gz01": ["这天"],
+        "nj02": ["这天"],
+        "gx01": ["这天"]
+      }
+    },
+    {
+      "id": "ach_miss_you",
+      "title": "我好想你苏打绿",
+      "description": "我好想你，好想你... ...",
+      "type": "song",
+      "triggerMap": {
+        "bj02": ["我好想你"],
+        "nj01": ["我好想你"],
+        "nj02": ["我好想你"],
+        "tp02": ["我好想你"],
+        "mel": ["我好想你"]
+      }
+    }
+  ],
+  "allCityExclusiveSongs": [
+    "你不需要多完美", "原汁原味", "吟游", "黎明前最暗时候", "夜光", "梦", "漂白", "To You", "一整天", "面面相觑", "应许", "饥饿再生", "Silent Angel", "白日梦绳索", "旅人", "夜来疯", "悬丝傀儡", "Let's Dream about Love", "生命乐章", "只有可以"
+  ],
+  "allUnreleasedSongs": [
+    "空气中的视听与幻觉", "Believe In Music", "蜘蛛天空", "I Don't Care", "忧愁", "我的未来不是梦", "鱼儿离不开水", "Rootless Tree", "Cash Machine", "如果你冷", "无状态", "黑猫白猫", "罗生门", "快乐颂", "被雨伤透", "落寞", "雨中的操场", "东京餐馆的China Girl", "一想到你呀", "城里的月光", "一起喔喔", "黄昏的故乡", "小时候", "没有烟抽的日子", "岛唄", "原谅", "九月", "美错", "开到荼靡", "我在欧洲打电话给你", "安静在沸腾", "百年孤寂", "Tomorrow will be fine.", "非常女", "跟着你到天边", "女爵", "掉了", "带我走", "你和我的时光", "那些花儿", "栅栏间隙偷窥你", "十七", "舞女", "红豆", "好好爱你", "你", "艳火", "有形的翅膀", "朱古力", "The Lonely Goatherd+山顶黑狗兄", "少年维特的烦恼"
+  ]
+}
