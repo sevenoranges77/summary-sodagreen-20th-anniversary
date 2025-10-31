@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>苏打绿“二十年一刻”观演总结</title>
+    <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* 定义主题颜色 */
@@ -21,27 +22,19 @@
         /* 基础样式 */
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            /* (V5 美化 ③) 渐变背景 */
             background-image: linear-gradient(180deg, #f8fcf8, var(--theme-bg));
             color: var(--theme-text);
             overscroll-behavior: none;
+            /* (V5.1 移除) 移除水印相关的样式
             position: relative;
             z-index: 1;
+            */
         }
         
-        /* (V5 美化 ④) 背景水印 */
-        body::before {
-            content: 'S O D A G R E E N';
-            position: fixed; /* 固定在视口 */
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-90deg);
-            font-size: 6rem; /* 调整水印大小 */
-            font-weight: 900;
-            color: rgba(34, 84, 61, 0.03); /* 3% 透明度的绿色 */
-            letter-spacing: 0.5rem;
-            z-index: -10; /* 确保在所有内容之下 */
-            pointer-events: none; /* 防止遮挡点击 */
-        }
+        /* (V5.1 移除) 删除背景水印
+        body::before { ... }
+        */
 
         /* ------------------------- */
         /* V3 故事版 (Story) 样式    */
@@ -54,6 +47,7 @@
             position: relative;
         }
 
+        /* (V5 美化 ②) 翻页动画 */
         .story-page {
             position: absolute;
             top: 0;
@@ -67,6 +61,7 @@
             align-items: center;
             padding: 2rem;
             text-align: center;
+            /* (V5 美化 ②) 默认状态 (不可见) */
             opacity: 0;
             visibility: hidden;
             z-index: 5; /* 默认在下层 */
@@ -461,6 +456,9 @@
 <body class="p-4 md:p-8">
 
     <div class="max-w-3xl mx-auto">
+        <!-- ========================== -->
+        <!--  1. 场次选择页面 (默认显示)  -->
+        <!-- ========================== -->
         <div id="selection-page" class="relative">
             <header class="text-center mb-6">
                 <h1 class="text-3xl font-bold" style="color: var(--theme-text);">苏打绿“二十年一刻”</h1>
@@ -470,19 +468,26 @@
             <main class="report-card p-4 md:p-6">
                 <h2 class="font-semibold text-lg mb-4 text-center">请选择你观演过的场次</h2>
                 
+                <!-- 三级折叠菜单容器 -->
                 <div id="accordion-container" class="space-y-2">
+                    <!-- (V5 美化 ①) 加载动画替换 -->
                     <div id="data-loading-spinner" class="loader-container">
                         <div class="loader-spinner"></div>
                     </div>
                 </div>
 
                 <button id="generate-report-btn" class="w-full mt-6 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200" style="background-color: var(--theme-primary);" disabled>
+                    <!-- (V5 美化 ①) 修改按钮初始文字 -->
                     请稍候...
                 </button>
             </main>
         </div>
 
+        <!-- ========================== -->
+        <!--  2. 故事版页面 (默认隐藏)  -->
+        <!-- ========================== -->
         <div id="story-container" style="display: none;">
+            <!-- JS 动态填充 .story-page -->
             <div id="story-nav" style="display: none;">
                 <button id="prev-btn" class="story-nav-btn">上一页</button>
                 <button id="next-btn" class="story-nav-btn">下一页</button>
@@ -490,6 +495,9 @@
         </div>
 
 
+        <!-- ========================== -->
+        <!--  3. 最终报告页面 (默认隐藏)  -->
+        <!-- ========================== -->
         <div id="full-report-page" class="relative" style="display: none;">
             <header class="text-center mb-6">
                 <h1 class="text-3xl font-bold" style="color: var(--theme-text);">我的专属观演报告</h1>
@@ -498,8 +506,10 @@
 
             <div class="space-y-6">
                 
+                <!-- 模块1: 总览 -->
                 <section class="report-card">
                     <div class="p-5">
+                        <!-- (V5 美化 ③) 添加 Emoji -->
                         <h2 class="text-2xl font-semibold mb-4 text-center">🗺️ 我的“二十年一刻”总览</h2>
                         <div class="grid grid-cols-3 gap-4 text-center">
                             <div>
@@ -516,20 +526,43 @@
                             </div>
                         </div>
                         <div id="full-city-list" class="mt-4 text-center text-sm">
-                            </div>
+                            <!-- 你的足迹遍布：北京、上海、... -->
+                        </div>
                     </div>
                 </section>
                 
+                <!-- 模块1.5: 专属观演回忆 (Gemini) (已注释) -->
+                <!--
                 <section class="report-card">
                     <div class="p-5">
+                        <h2 class="text-2xl font-semibold mb-4 text-center">我的专属观演回忆</h2>
+                        <div id="gemini-output" class="p-4 bg-gray-50 rounded-lg text-gray-700" style="display:none; white-space: pre-wrap; line-height: 1.75;"></div>
+                        <div id="gemini-loading" class="text-center" style="display:none;">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-green-500 mx-auto"></div>
+                            <p class="mt-2 text-sm text-gray-500">正在为你生成专属回忆...</p>
+                        </div>
+                        <button id="gemini-generate-btn" class="w-full mt-4 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200" style="background-color: var(--theme-primary);">
+                            ✨ 生成我的专属观演回忆 ✨
+                        </button>
+                    </div>
+                </section>
+                -->
+
+                <!-- 模块2: 成就墙 (要求 ④: 简化版) -->
+                <section class="report-card">
+                    <div class="p-5">
+                        <!-- (V5 美化 ③) 添加 Emoji -->
                         <h2 class="text-2xl font-semibold mb-4 text-center">🎖️ 我的成就墙</h2>
                         <div id="full-achievement-grid" class="space-y-3">
-                            </div>
+                            <!-- JS 动态生成 (简化版) -->
+                        </div>
                     </div>
                 </section>
 
+                <!-- 模块3: 全巡演稀有度 (要求 ④: 简化版) -->
                 <section class="report-card" id="full-rarity-grid">
                     <div class="p-5">
+                        <!-- (V5 美化 ③) 添加 Emoji -->
                         <h2 class="text-2xl font-semibold mb-4 text-center">💎 我的点歌稀有度</h2>
                         <div class="grid grid-cols-3 gap-4 text-center mb-4">
                             <div>
@@ -570,8 +603,10 @@
                     </div>
                 </section>
 
+                <!-- 模块4: 个人点歌分析 -->
                 <section class="report-card">
                     <div class="p-5">
+                        <!-- (V5 美化 ③) 添加 Emoji -->
                         <h2 class="text-2xl font-semibold mb-4 text-center">🎶 我的个人点歌细节</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -580,6 +615,7 @@
                                 </ul>
                             </div>
                              <div>
+                                <!-- (V5 美化 🗣️) 标题修改 -->
                                 <h3 class="font-semibold text-lg mb-2">我的宝藏歌曲</h3>
                                 <ul id="full-encore-once" class="list-disc list-inside space-y-1">
                                 </ul>
@@ -588,11 +624,14 @@
                     </div>
                 </section>
 
+                <!-- 模块5: 专辑点亮计划 (可展开版) -->
                 <section class="report-card">
                     <div class="p-5">
+                        <!-- (V5 美化 ③) 添加 Emoji -->
                         <h2 class="text-2xl font-semibold mb-4 text-center">💿 专辑点亮计划</h2>
                         <div id="full-album-progress-grid" class="space-y-3">
-                            </div>
+                            <!-- JS 动态生成 -->
+                        </div>
                     </div>
                 </section>
                 
@@ -602,6 +641,7 @@
             </div>
         </div>
 
+        <!-- (V5 新增) 页面底部反馈 -->
         <footer class="text-center mt-8 pb-4 relative z-10">
             <p class="text-xs text-gray-400">
                 如果有任何bug请向 @见春风起意 反馈
@@ -610,6 +650,9 @@
 
     </div>
 
+    <!-- ========================== -->
+    <!--  自定义 Modal 弹窗 (默认隐藏) -->
+    <!-- ========================== -->
     <div id="alert-modal" class="modal-overlay" style="display: none;">
         <div class="modal-box text-center">
             <p id="modal-message" class="text-lg text-gray-700">这是一条提示信息。</p>
@@ -620,6 +663,9 @@
     </div>
 
 
+    <!-- ======================================================= -->
+    <!--  核心数据与应用逻辑
+    <!-- ======================================================= -->
     <script>
         // =================================================================
         //
@@ -746,6 +792,7 @@
                             <div id="${regionId}-header" class="accordion-header flex justify-between items-center p-3" data-target="#${regionId}-content">
                                 <div class="flex items-center">
                                     <span class="font-semibold text-lg">${region}</span>
+                                    <!-- V4.1: (要求 ②) L1 全选按钮 -->
                                     <button class="select-all-btn" data-target-id="#${regionId}-content" title="全选/全不选 ${region}">全选</button>
                                 </div>
                                 <span class="accordion-icon text-gray-500">▶</span>
@@ -781,6 +828,7 @@
                                     <div id="${cityId}-header" class="accordion-header flex justify-between items-center p-3" data-target="#${cityId}-content">
                                         <div class="flex items-center">
                                             <span class="font-medium">${city}</span>
+                                            <!-- V4.1: (要求 ②) L2 全选按钮 -->
                                             <button class="select-all-btn" data-target-id="#${cityId}-content" title="全选/全不选 ${city}">全选</button>
                                         </div>
                                         <span class="accordion-icon text-gray-500">▶</span>
@@ -1192,7 +1240,8 @@
                         <span class="text-sm block">(点击查看)</span>
                     </button>
                     <div id="city-list-bubbles" class="mb-6 max-w-md">
-                        </div>
+                        <!-- 气泡将在这里生成 -->
+                    </div>
                     
                     <h3 class="story-subtitle text-2xl font-semibold mt-4">“我听到了这些珍贵的一刻”</h3>
                     <div class="text-left max-w-md w-full p-4 report-card">
@@ -1899,6 +1948,9 @@
                 // 2. 切换到故事页
                 selectionPage.style.display = 'none';
                 storyContainer.style.display = 'block';
+                
+                // (V5.1 修复) 初始化 storyPages 以渲染欢迎页
+                storyPages = [{ type: 'welcome' }];
                 currentPageIndex = 0; // 从欢迎页开始
                 
                 // (V5 美化 ②) 渲染第一页 (欢迎页)，不使用 changePage
@@ -2008,3 +2060,4 @@
     </script>
 </body>
 </html>
+
