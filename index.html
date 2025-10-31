@@ -26,15 +26,10 @@
             background-image: linear-gradient(180deg, #f8fcf8, var(--theme-bg));
             color: var(--theme-text);
             overscroll-behavior: none;
-            /* (V5.1 移除) 移除水印相关的样式
-            position: relative;
-            z-index: 1;
-            */
+            /* (V5.1 移除) 移除水印相关的样式 */
         }
         
-        /* (V5.1 移除) 删除背景水印
-        body::before { ... }
-        */
+        /* (V5.1 移除) 删除背景水印 */
 
         /* ------------------------- */
         /* V3 故事版 (Story) 样式    */
@@ -911,13 +906,32 @@
                  return concertList.filter(show => userShowIDs.includes(show.id));
             }
 
+            // (V5.2 修改) 修复 Bug ③ (2x2 布局)
             function calculateOverview(userShowIDs, selectedShows) {
                 const totalShows = userShowIDs.length;
                 const totalHours = totalShows * 3;
                 const uniqueCities = [...new Set(selectedShows.map(show => show.city))];
                 const totalCities = uniqueCities.length;
                 const cityListText = totalCities > 0 ? `我的足迹遍布：${uniqueCities.join('、')}` : '我还没有选择任何场次。';
-                return { totalShows, totalHours, totalCities, cityListText, uniqueCities };
+                
+                // (V5.2 Fix for Feature ③)
+                let startDate = null;
+                let endDate = null;
+                let daysAccompanied = 0;
+                
+                if (selectedShows.length > 0) {
+                    // 按日期排序找到开始和结束
+                    const sortedShows = [...selectedShows].sort((a, b) => new Date(a.date) - new Date(b.date));
+                    startDate = sortedShows[0].date;
+                    endDate = sortedShows[sortedShows.length - 1].date;
+                    
+                    // 计算相伴天数
+                    const diffTime = Math.abs(new Date(endDate) - new Date(startDate));
+                    // +1 因为 5/4 到 5/5 应该是 2 天, 而不是 1 天
+                    daysAccompanied = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; 
+                }
+
+                return { totalShows, totalHours, totalCities, cityListText, uniqueCities, startDate, endDate, daysAccompanied };
             }
 
             // (V3 新增) 计算城市一刻
@@ -1207,12 +1221,18 @@
             }
 
             /**
-             * (V3 新增) 渲染总览页
+             * (V5.2 修改) 渲染总览页 (要求 ③)
              */
             function renderOverviewPage(page, data) {
+                // (V5.2 Fix for Feature ③)
+                const journeyText = data.startDate ? 
+                    `我的二十年一刻之旅<br>从 ${data.startDate} 开始，到 ${data.endDate} 结束` : '';
+
                 page.innerHTML = `
                     <h1 class="story-title">我的“二十年一刻”总览</h1>
-                    <div class="grid grid-cols-3 gap-8 text-center" style="animation: fadeIn 0.5s ease-out;">
+                    
+                    <!-- (V5.2 Fix for Feature ③) 2x2 Grid -->
+                    <div class="grid grid-cols-2 gap-8 text-center mb-6" style="animation: fadeIn 0.5s ease-out;">
                         <div>
                             <div class="text-6xl font-bold" style="color: var(--theme-primary);">${data.totalShows}</div>
                             <div class="text-lg mt-2">总场次</div>
@@ -1225,7 +1245,14 @@
                             <div class="text-6xl font-bold" style="color: var(--theme-primary);">${data.totalCities}</div>
                             <div class="text-lg mt-2">总城市</div>
                         </div>
+                        <div>
+                            <div class="text-6xl font-bold" style="color: var(--theme-primary);">${data.daysAccompanied}</div>
+                            <div class="text-lg mt-2">相伴天数</div>
+                        </div>
                     </div>
+                    
+                    <!-- (V5.2 Fix for Feature ③) Journey Text -->
+                    <p class="story-subtitle text-base">${journeyText}</p>
                 `;
             }
 
@@ -1724,6 +1751,8 @@
                 // 创建新页面
                 const page = document.createElement('div');
                 page.className = 'story-page';
+                // (V5.2 修复 Bug ①)
+                page.dataset.pageType = pageData.type; 
                 
                 // 检查是否为可滚动页面
                 const isScrollable = [
@@ -1833,13 +1862,25 @@
                 // (V5 美化 ②) 执行翻页动画
                 if (oldPage) {
                     oldPage.classList.remove('active');
-                    oldPage.classList.add(direction > 0 ? 'slide-out-to-left' : 'slide-out-to-right');
-                    setTimeout(() => {
-                        oldPage.remove(); // 动画结束后移除旧页面
-                    }, 500); // 必须匹配 CSS 动画时间
+
+                    // (V5.2 修复 Bug ①) 欢迎页(page 0)特殊处理：立即移除，不滑动
+                    if (oldPage.dataset.pageType === 'welcome') {
+                        oldPage.remove();
+                    } else {
+                        oldPage.classList.add(direction > 0 ? 'slide-out-to-left' : 'slide-out-to-right');
+                        setTimeout(() => {
+                            oldPage.remove(); // 动画结束后移除旧页面
+                        }, 500); // 必须匹配 CSS 动画时间
+                    }
                 }
                 
-                newPage.classList.add(direction > 0 ? 'slide-in-from-right' : 'slide-in-from-left');
+                // (V5.2 修复 Bug ①) 欢迎页(page 0) -> 总览页(page 1)的过渡：使用淡入，不滑动
+                if (newPage.dataset.pageType === 'overview' && oldPage?.dataset.pageType === 'welcome') {
+                    newPage.style.animation = 'fadeIn 0.5s ease-out forwards';
+                } else {
+                    newPage.classList.add(direction > 0 ? 'slide-in-from-right' : 'slide-in-from-left');
+                }
+                
                 storyContainer.appendChild(newPage);
                 
                 // 强制重绘以启动动画
