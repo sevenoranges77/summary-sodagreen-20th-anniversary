@@ -122,7 +122,7 @@
       "mel": ["你", "你和我的时光", "艳火", "再遇见", "我好想你", "你喔！", "小时候", "空气中的视听与幻觉", "红豆", "蝉想", "带我走"],
       "lon": ["艳火", "空气中的视听与幻觉", "他夏了夏天", "茧", "有形的翅膀", "小宇宙", "浪漫派", "被雨困住的城市", "近未来"],
       "ber": ["暂时失控", "我们不懂", "坠落", "黄昏的故乡", "记念", "是我的海", "朱古力", "回车诺比的梦", "oh oh oh oh......", "在世界的尽头大声地说我恨你", "他举起右手点名", "如果你冷"],
-      "tyo": ["牧神搭上春色的火车，而", "小时候", "岛唄", "The Lonely Goatherd+山顶黑狗兄", "Believe In Music", "Cash Machine", "oh oh oh oh......", "近未来"],
+      "tyo": ["牧神搭上春色的火车，而", "小时候", "岛唄", "The Lonely Goatherd+山顶黑狗兄", "Believe In Music", "Cash Machine", "oh oh oh oh......", "近未来", "少年维特的烦恼", "东京餐馆的China Girl", "我好想你"],
       "gx01": ["面面相觑", "这天", "煽动", "蜘蛛天空", "蝉想", "小时候", "左边", "oh oh oh oh......", "是我的海", "偷闲的翅膀"],
       "gx02": ["Rootless Tree", "原汁原味", "墙外的风景", "暂时失控", "笑闹人间", "燕窝", "你喔！", "浪漫派", "相信", "空气中的视听与幻觉"]
     }
@@ -189,7 +189,7 @@
     "黑猫白猫": { "tourCount": 2, "firstShowId": "bj01", "lastShowId": "bj02" },
     "城市": { "tourCount": 2, "firstShowId": "bj01", "lastShowId": "cq01" },
     "脑波弱": { "tourCount": 2, "firstShowId": "bj01", "lastShowId": "cq02" },
-    "我好想你": { "tourCount": 5, "firstShowId": "bj02", "lastShowId": "mel" },
+    "我好想你": { "tourCount": 6, "firstShowId": "bj02", "lastShowId": "mel" },
     "燕窝": { "tourCount": 4, "firstShowId": "bj02", "lastShowId": "gx02" },
     "Sorry青春": { "tourCount": 2, "firstShowId": "wh01", "lastShowId": "cq01" },
     "原谅": { "tourCount": 3, "firstShowId": "wh01", "lastShowId": "tp01" },
@@ -248,6 +248,8 @@
     "The Lonely Goatherd+山顶黑狗兄": { "tourCount": 1, "firstShowId": "tyo", "lastShowId": "tyo" },
     "Believe In Music": { "tourCount": 1, "firstShowId": "tyo", "lastShowId": "tyo" },
     "Cash Machine": { "tourCount": 1, "firstShowId": "tyo", "lastShowId": "tyo" },
+    "东京餐馆的China Girl": { "tourCount": 1, "firstShowId": "tyo", "lastShowId": "tyo" },
+    "少年维特的烦恼": { "tourCount": 1, "firstShowId": "tyo", "lastShowId": "tyo" },
     "面面相觑": { "tourCount": 1, "firstShowId": "gx01", "lastShowId": "gx01" },
     "Rootless Tree": { "tourCount": 1, "firstShowId": "gx02", "lastShowId": "gx02" }
   },
