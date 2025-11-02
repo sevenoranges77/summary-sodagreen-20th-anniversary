@@ -6,6 +6,10 @@
     <title>苏打绿“二十年一刻”观演总结</title>
     <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- (V5.3 需求 ①) 引入 html2canvas 库用于保存为图片 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- (V5.4 修复) 为截图功能添加的临时样式表 -->
+    <style id="screenshot-fix-styles"></style>
     <style>
         /* 定义主题颜色 */
         :root {
@@ -396,15 +400,39 @@
             background-color: #e2e8f0;
             border-radius: 0.375rem; /* 6px */
             overflow: hidden;
+            /* (V5.5 修复) 添加 relative 定位，以便绝对定位百分比文字 */
+            position: relative;
         }
         .progress-bar-fill {
             background-color: var(--theme-primary);
             transition: width 0.5s ease-in-out;
-            text-align: right;
-            padding: 0 0.5rem;
+            /* (V5.5 修复) 移除所有文本和对齐样式，它只作为进度条 */
+            height: 1.25rem; /* 20px - 保持原样高度 */
+        }
+        
+        /* (V5.5 修复) 新增百分比文字样式 */
+        .progress-bar-percentage {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            /* 关键: 通过 left 和 transform:translateX(-100%) 将其右边缘与进度条末端对齐 */
+            transform: translateX(-100%);
+            padding-right: 0.5rem; /* 8px 间距 */
+            
+            /* 从 .progress-bar-fill 移过来的样式 */
             color: white;
             font-size: 0.75rem; /* 12px */
             font-weight: 500;
+            
+            /* (V5.6 修复) 移除 flex 垂直居中，html2canvas 不兼容 */
+            /* display: flex; */
+            /* align-items: center; */
+
+            /* (V5.6 修复) 使用 line-height 垂直居中，html2canvas 兼容性更好 */
+            line-height: 1.25rem; /* 20px, 必须与 .progress-bar-fill 的高度一致 */
+
+            /* 防止文字换行 */
+            white-space: nowrap;
         }
         
         /* 成就卡片 (用于最终报告页) */
@@ -578,20 +606,20 @@
                              <h3 class="font-semibold text-center mb-2">分级总览</h3>
                              <div class="grid grid-cols-4 gap-2 text-center">
                                  <div>
-                                    <div id="full-rarity-l1-count" class="text-2xl font-bold">0</div>
-                                    <div class="text-xs mt-1">绝版一刻</div>
+                                     <div id="full-rarity-l1-count" class="text-2xl font-bold">0</div>
+                                     <div class="text-xs mt-1">绝版一刻</div>
                                  </div>
                                  <div>
-                                    <div id="full-rarity-l2-count" class="text-2xl font-bold">0</div>
-                                    <div class="text-xs mt-1">限定重逢</div>
+                                     <div id="full-rarity-l2-count" class="text-2xl font-bold">0</div>
+                                     <div class="text-xs mt-1">限定重逢</div>
                                  </div>
                                  <div>
-                                    <div id="full-rarity-l3-count" class="text-2xl font-bold">0</div>
-                                    <div class="text-xs mt-1">珍贵相遇</div>
+                                     <div id="full-rarity-l3-count" class="text-2xl font-bold">0</div>
+                                     <div class="text-xs mt-1">珍贵相遇</div>
                                  </div>
                                  <div>
-                                    <div id="full-rarity-l4-count" class="text-2xl font-bold">0</div>
-                                    <div class="text-xs mt-1">热门回响</div>
+                                     <div id="full-rarity-l4-count" class="text-2xl font-bold">0</div>
+                                     <div class="text-xs mt-1">热门回响</div>
                                  </div>
                              </div>
                         </div>
@@ -629,6 +657,11 @@
                         </div>
                     </div>
                 </section>
+                
+                <!-- (V5.3 需求 ①) 添加保存图片按钮 -->
+                <button id="save-as-image-btn" class="w-full mt-6 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-200" style="background-color: var(--theme-primary);">
+                    保存为图片
+                </button>
                 
                 <button id="reset-btn" class="w-full mt-4 bg-gray-200 text-gray-700 font-bold py-3 px-4 rounded-lg transition-colors duration-200 hover:bg-gray-300">
                     返回首页重新选择
@@ -703,13 +736,15 @@
             const modal = document.getElementById('alert-modal');
             const modalMessage = document.getElementById('modal-message');
             const modalCloseBtn = document.getElementById('modal-close-btn');
+            // (V5.3 需求 ①) 获取保存图片按钮
+            const saveAsImageBtn = document.getElementById('save-as-image-btn');
             // const geminiGenerateBtn = document.getElementById('gemini-generate-btn');
             // const geminiLoading = document.getElementById('gemini-loading');
             // const geminiOutput = document.getElementById('gemini-output');
 
             // --- V3 故事版状态 ---
             let allReportData = {}; // 存储所有计算结果
-            let storyPages = [];     // 故事页面序列
+            let storyPages = [];    // 故事页面序列
             let currentPageIndex = 0;
             let surpriseSongs = new Set(); // (要求 ③) 新增: 存储惊喜歌曲
 
@@ -1064,7 +1099,7 @@
             // F2.6: 计算特殊成就 (拆分歌曲成就和元成就)
             function calculateAchievements(userShowIDs, selectedShows, totalCities) {
                 let songAchievements = [];
-                let metaAchievements = []; 
+                let metaAchievements = [];  
                 
                 const showMap = new Map(selectedShows.map(show => [show.id, show]));
                 
@@ -1097,10 +1132,10 @@
                                 
                                 if (matchedSongs.length > 0) {
                                      unlockedDetails.push({
-                                        date: show.date,
-                                        city: show.city,
-                                        songs: matchedSongs
-                                    });
+                                         date: show.date,
+                                         city: show.city,
+                                         songs: matchedSongs
+                                     });
                                 }
                             }
                         });
@@ -1443,7 +1478,7 @@
             }
 
             /**
-             * (V3 修改) 渲染稀有度分级页 (L1-L4)
+             * (V5.3 需求 ②) 渲染稀有度分级页 (L1-L4)
              */
             function renderRarityLevelsPage(page, data) {
                 const renderSongList = (songs) => {
@@ -1459,23 +1494,31 @@
                 page.innerHTML = `
                     <h1 class="story-title">点歌池的宝藏</h1>
                     <p class="story-subtitle text-sm mb-4">
-                        请勾选你认为最惊喜、最特别的歌曲，<br>它们将出现在最终报告的“我的宝藏歌曲”列表中。
+                        请在以下你听过现场的歌曲勾选<br>你认为最惊喜、最特别的歌曲，<br>它们将出现在最终报告的“我的宝藏歌曲”列表中。
                     </p>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-3xl">
                         <div class="report-card p-3">
                             <h3 class="font-semibold text-lg" style="color: var(--theme-primary);">“绝版一刻” (${data.level1.length})</h3>
+                            <!-- V5.3 需求 ②: 添加解释 -->
+                            <p class="text-xs text-gray-500 mt-1">(在巡演中共被点到过 1 次)</p>
                             <ul class="list-disc list-inside text-left mt-2">${renderSongList(data.level1)}</ul>
                         </div>
                         <div class="report-card p-3">
                             <h3 class="font-semibold text-lg" style="color: var(--theme-primary);">“限定重逢” (${data.level2.length})</h3>
+                            <!-- V5.3 需求 ②: 添加解释 -->
+                            <p class="text-xs text-gray-500 mt-1">(在巡演中共被点到过 2-3 次)</p>
                             <ul class="list-disc list-inside text-left mt-2">${renderSongList(data.level2)}</ul>
                         </div>
                         <div class="report-card p-3">
                             <h3 class="font-semibold text-lg" style="color: var(--theme-primary);">“珍贵相遇” (${data.level3.length})</h3>
+                            <!-- V5.3 需求 ②: 添加解释 -->
+                            <p class="text-xs text-gray-500 mt-1">(在巡演中共被点到过 4-5 次)</p>
                             <ul class="list-disc list-inside text-left mt-2">${renderSongList(data.level3)}</ul>
                         </div>
                         <div class="report-card p-3">
                             <h3 class="font-semibold text-lg" style="color: var(--theme-primary);">“热门回响” (${data.level4.length})</h3>
+                            <!-- V5.3 需求 ②: 添加解释 -->
+                            <p class="text-xs text-gray-500 mt-1">(在巡演中共被点到过 6 次及以上)</p>
                             <ul class="list-disc list-inside text-left mt-2">${renderSongList(data.level4)}</ul>
                         </div>
                     </div>
@@ -1522,10 +1565,14 @@
                                         <span class="font-semibold">${album.name}</span>
                                         <span>(${album.count} / ${album.total})</span>
                                     </div>
-                                    <div class="progress-bar-bg">
-                                        <div class="progress-bar-fill" style="width: ${album.percentage}%;">
-                                            ${album.percentage > 10 ? album.percentage + '%' : ''}
-                                        </div>
+                                    <!-- (V5.5 修复) HTML 结构修改：文字和进度条分离 -->
+                                    <div class="progress-bar-bg" style="height: 1.25rem;">
+                                        <div class="progress-bar-fill" style="width: ${album.percentage}%;"></div>
+                                        ${album.percentage > 10 ? `
+                                        <span class="progress-bar-percentage" style="left: ${album.percentage}%;">
+                                            ${album.percentage}%
+                                        </span>
+                                        ` : ''}
                                     </div>
                                 </div>
                                 <div id="album-content-${index}" class="accordion-content p-3 border-t border-gray-200 text-left">
@@ -1664,10 +1711,14 @@
                                 <span class="font-semibold">${album.name}</span>
                                 <span>(${album.count} / ${album.total})</span>
                             </div>
-                            <div class="progress-bar-bg">
-                                <div class="progress-bar-fill" style="width: ${album.percentage}%;">
-                                    ${album.percentage > 10 ? album.percentage + '%' : ''}
-                                </div>
+                            <!-- (V5.5 修复) HTML 结构修改：文字和进度条分离 -->
+                            <div class="progress-bar-bg" style="height: 1.25rem;">
+                                <div class="progress-bar-fill" style="width: ${album.percentage}%;"></div>
+                                ${album.percentage > 10 ? `
+                                <span class="progress-bar-percentage" style="left: ${album.percentage}%;">
+                                    ${album.percentage}%
+                                </span>
+                                ` : ''}
                             </div>
                         </div>
                         <div id="full-album-content-${index}" class="accordion-content p-3 border-t border-gray-200 text-left">
@@ -1973,6 +2024,72 @@
             }
             */
 
+            // (V5.3 需求 ①) 保存为图片的功能
+            // (V5.4 修复) 解决 html2canvas 渲染 transition/text-align 错误
+            function saveReportAsImage() {
+                const reportElement = document.getElementById('full-report-page');
+                const saveBtn = document.getElementById('save-as-image-btn');
+                const resetBtn = document.getElementById('reset-btn');
+                // (V5.4 修复) 获取临时样式表
+                const tempStyles = document.getElementById('screenshot-fix-styles');
+
+                // 1. 暂时隐藏按钮，以免出现在截图中
+                if (saveBtn) saveBtn.style.display = 'none';
+                if (resetBtn) resetBtn.style.display = 'none';
+                
+                // (V5.4 修复) 注入 CSS 修复: 禁用 transition，防止 html2canvas 渲染错误
+                if (tempStyles) {
+                    tempStyles.innerHTML = `
+                        .progress-bar-fill {
+                            transition: none !important;
+                        }
+                        /* (V5.5 修复) 确保新span的left属性也被立即应用 */
+                        .progress-bar-percentage {
+                            transition: none !important;
+                        }
+                    `;
+                }
+                
+                // 弹出加载提示
+                showAlert('正在生成图片，请稍候...'); 
+
+                // (V5.4 修复) 增加一个短暂的延迟，确保 CSS 修复被浏览器应用
+                setTimeout(() => {
+                    html2canvas(reportElement, {
+                        // 使用 --theme-bg 作为背景色，防止透明
+                        backgroundColor: getComputedStyle(document.body).getPropertyValue('--theme-bg') || '#f4f8f4',
+                        scale: 2 // 2倍分辨率，使图片更清晰
+                    }).then(canvas => {
+                        // 创建一个链接来触发下载
+                        const link = document.createElement('a');
+                        link.download = '苏打绿“二十年一刻”报告.png';
+                        link.href = canvas.toDataURL('image/png');
+                        link.click();
+                        link.remove(); // 清理
+                        
+                        // 2. 恢复按钮显示
+                        if (saveBtn) saveBtn.style.display = 'block';
+                        if (resetBtn) resetBtn.style.display = 'block';
+                        
+                        // (V5.4 修复) 清空临时样式
+                        if (tempStyles) tempStyles.innerHTML = '';
+                        
+                        // 关闭加载提示
+                        closeAlert(); 
+                    }).catch(err => {
+                        console.error('图片生成失败:', err);
+                        // 2. 即使失败也要恢复按钮
+                        if (saveBtn) saveBtn.style.display = 'block';
+                        if (resetBtn) resetBtn.style.display = 'block';
+                        
+                        // (V5.4 修复) 清空临时样式
+                        if (tempStyles) tempStyles.innerHTML = '';
+                        
+                        // 显示错误提示
+                        showAlert('图片生成失败，请重试。');
+                    });
+                }, 100); // 增加 100ms 延迟确保样式生效
+            }
 
             /**
              * (V3) 主函数：生成报告
@@ -2040,6 +2157,11 @@
             // V3 导航事件
             prevBtn.addEventListener('click', () => changePage(-1));
             nextBtn.addEventListener('click', () => changePage(1));
+
+            // (V5.3 需求 ①) 绑定保存图片按钮
+            if (saveAsImageBtn) {
+                saveAsImageBtn.addEventListener('click', saveReportAsImage);
+            }
             
             // (要求 ③) 新增: 为惊喜歌曲复选框添加事件委托
             storyContainer.addEventListener('change', (e) => {
@@ -2101,4 +2223,3 @@
     </script>
 </body>
 </html>
-
