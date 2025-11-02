@@ -341,7 +341,7 @@
 
 
         /* ------------------------- */
-        /* V1/V2 原始样式 (保留)     */
+        /* V1/V2 原始样式 (保留)       */
         /* ------------------------- */
         
         /* 折叠菜单样式 */
@@ -415,8 +415,8 @@
             position: absolute;
             top: 0;
             bottom: 0;
-            /* 关键: 通过 left 和 transform:translateX(-100%) 将其右边缘与进度条末端对齐 */
-            transform: translateX(-100%);
+            /* (V5.6 修复) 移除 transform, html2canvas 兼容性差 */
+            /* transform: translateX(-100%); */
             padding-right: 0.5rem; /* 8px 间距 */
             
             /* 从 .progress-bar-fill 移过来的样式 */
@@ -441,6 +441,10 @@
             border: 1px solid var(--theme-accent-border);
             border-radius: 0.5rem; /* 8px */
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+            /* (V5.6 修复) 添加 flex 居中, 解决 html2canvas 截图对齐问题 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .achievement-card .title {
             color: #b7791f; /* 深黄褐色 */
@@ -1131,11 +1135,11 @@
                                 const matchedSongs = triggeredSongs.filter(ts => findSong(songsThisShow, ts));
                                 
                                 if (matchedSongs.length > 0) {
-                                     unlockedDetails.push({
-                                         date: show.date,
-                                         city: show.city,
-                                         songs: matchedSongs
-                                     });
+                                    unlockedDetails.push({
+                                        date: show.date,
+                                        city: show.city,
+                                        songs: matchedSongs
+                                    });
                                 }
                             }
                         });
@@ -1183,7 +1187,7 @@
                     }
                 });
                 if (unreleasedDetails.length > 0) {
-                     songAchievements.push({
+                    songAchievements.push({
                         id: 'ach_unreleased',
                         title: '遗珠不再有憾',
                         description: '你听到了这些未收录在旧版录音室专辑中的“遗珠”之作。',
@@ -1561,7 +1565,8 @@
                         ${data.map((album, index) => `
                             <div class="border border-gray-200 rounded-md">
                                 <div id="album-header-${index}" class="accordion-header p-3" data-target="#album-content-${index}">
-                                    <div class="flex justify-between text-sm font-medium mb-1">
+                                    <!-- (V5.6 修复) 增加间距 -->
+                                    <div class="flex justify-between text-sm font-medium mb-2">
                                         <span class="font-semibold">${album.name}</span>
                                         <span>(${album.count} / ${album.total})</span>
                                     </div>
@@ -1569,7 +1574,8 @@
                                     <div class="progress-bar-bg" style="height: 1.25rem;">
                                         <div class="progress-bar-fill" style="width: ${album.percentage}%;"></div>
                                         ${album.percentage > 10 ? `
-                                        <span class="progress-bar-percentage" style="left: ${album.percentage}%;">
+                                        <!-- (V5.6 修复) 改用 'right' 定位, 弃用 'left' 和 'transform' -->
+                                        <span class="progress-bar-percentage" style="right: calc(100% - ${album.percentage}%);">
                                             ${album.percentage}%
                                         </span>
                                         ` : ''}
@@ -1654,7 +1660,8 @@
                 container.innerHTML = `
                     <div class="flex flex-wrap justify-center gap-2">
                         ${achievementsData.map(ach => `
-                            <div class="achievement-card p-2 px-3">
+                            <!-- (V5.6 修复) 添加 flex 居中 -->
+                            <div class="achievement-card p-2 px-3 flex items-center justify-center">
                                 <span class="title text-sm">🏆 ${ach.title}</span>
                             </div>
                         `).join('')}
@@ -1707,7 +1714,8 @@
                 container.innerHTML = data.map((album, index) => `
                     <div class="border border-gray-200 rounded-md">
                         <div id="full-album-header-${index}" class="accordion-header p-3" data-target="#full-album-content-${index}">
-                            <div class="flex justify-between text-sm font-medium mb-1">
+                            <!-- (V5.6 修复) 增加间距 -->
+                            <div class="flex justify-between text-sm font-medium mb-2">
                                 <span class="font-semibold">${album.name}</span>
                                 <span>(${album.count} / ${album.total})</span>
                             </div>
@@ -1715,7 +1723,8 @@
                             <div class="progress-bar-bg" style="height: 1.25rem;">
                                 <div class="progress-bar-fill" style="width: ${album.percentage}%;"></div>
                                 ${album.percentage > 10 ? `
-                                <span class="progress-bar-percentage" style="left: ${album.percentage}%;">
+                                <!-- (V5.6 修复) 改用 'right' 定位, 弃用 'left' 和 'transform' -->
+                                <span class="progress-bar-percentage" style="right: calc(100% - ${album.percentage}%);">
                                     ${album.percentage}%
                                 </span>
                                 ` : ''}
